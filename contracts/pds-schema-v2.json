@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 2,
+  "stage": "T06 cards 1–5 — plans, tasks, study logs, reviews and full JSON export",
+  "status": "implemented; real study records, final verification and submission are pending",
+  "timezone": "Asia/Seoul",
+  "tables": {
+    "plans": {
+      "primaryKey": [
+        "id"
+      ],
+      "columns": {
+        "id": "UUID v4 TEXT",
+        "created_at": "UTC ISO 8601 TEXT"
+      }
+    },
+    "plan_versions": {
+      "primaryKey": [
+        "plan_id",
+        "version"
+      ],
+      "foreignKeys": [
+        {
+          "column": "plan_id",
+          "references": "plans.id"
+        }
+      ],
+      "columns": {
+        "plan_id": "UUID v4 TEXT",
+        "version": "positive INTEGER",
+        "title": "TEXT 1..120 chars",
+        "start_date": "YYYY-MM-DD TEXT",
+        "end_date": "YYYY-MM-DD TEXT >= start_date",
+        "priority": "high | normal | low",
+        "success_criteria": "TEXT 1..2000 chars",
+        "expected_minutes": "INTEGER 1..100000",
+        "saved_at": "UTC ISO 8601 TEXT"
+      }
+    },
+    "tasks": {
+      "primaryKey": ["id"],
+      "foreignKeys": [{ "column": "plan_id", "references": "plans.id" }],
+      "columns": {
+        "id": "UUID v4 TEXT",
+        "plan_id": "UUID v4 TEXT",
+        "title": "TEXT 1..120 chars",
+        "due_date": "nullable YYYY-MM-DD TEXT",
+        "priority": "high | normal | low",
+        "tags": "JSON TEXT array of up to 8 unique tags, each 1..24 chars",
+        "expected_minutes": "INTEGER 1..100000",
+        "completed_at": "nullable UTC ISO 8601 TEXT",
+        "deleted_at": "nullable UTC ISO 8601 TEXT",
+        "created_at": "UTC ISO 8601 TEXT",
+        "updated_at": "UTC ISO 8601 TEXT",
+        "version": "positive INTEGER"
+      }
+    },
+    "study_logs": {
+      "primaryKey": ["id"],
+      "foreignKeys": [{ "column": "task_id", "references": "tasks.id" }],
+      "columns": {
+        "id": "UUID v4 TEXT",
+        "task_id": "UUID v4 TEXT",
+        "started_at": "UTC ISO 8601 TEXT",
+        "ended_at": "UTC ISO 8601 TEXT > started_at",
+        "actual_minutes": "INTEGER 1..100000 <= elapsed minutes",
+        "studied_content": "TEXT 1..2000 chars",
+        "blocker_reason": "nullable TEXT 1..1000 chars",
+        "created_at": "UTC ISO 8601 TEXT",
+        "updated_at": "UTC ISO 8601 TEXT",
+        "deleted_at": "nullable UTC ISO 8601 TEXT",
+        "version": "positive INTEGER"
+      }
+    },
+    "plan_reviews": {
+      "primaryKey": ["plan_id"],
+      "foreignKeys": [
+        { "column": "plan_id", "references": "plans.id" },
+        { "column": "next_plan_id", "references": "plans.id" }
+      ],
+      "columns": {
+        "plan_id": "UUID v4 TEXT",
+        "next_plan_id": "UUID v4 TEXT != plan_id; next plan begins on or after source plan ends",
+        "improvement": "TEXT 1..1000 chars; one improvement per source plan",
+        "created_at": "UTC ISO 8601 TEXT",
+        "updated_at": "UTC ISO 8601 TEXT",
+        "version": "positive INTEGER"
+      }
+    }
+  },
+  "rules": {
+    "dates": "Calendar dates are stored literally without UTC conversion; years 2000..2100. Display timestamps in Asia/Seoul.",
+    "timeUnit": "minutes",
+    "expectedTime": "Total for this plan period, not per-session duration. Initial unsaved draft proposes 120 minutes.",
+    "history": "Append-only versions. Version 1 preserves the original. Latest version is current; update uses expectedVersion to reject stale writes.",
+    "atomicity": "Plan creation and first revision use a D1 transaction batch. Revision insert uses a conditional SELECT and composite primary key.",
+    "tasks": "Tasks belong to plans. Searches, filters and sorting use non-deleted tasks. Completion is idempotent; repeated complete requests do not increment version. Deletion sets deleted_at for execution-log referential integrity. Edits and deletion use expectedVersion to reject stale writes.",
+    "studyLogs": "Logs belong to tasks in the selected plan. Only logs for active tasks count in lists. Repeated creation with the same UUID is rejected. Edits and soft deletion use expectedVersion. Saved times are UTC and shown as Seoul time. Saving a log does not automatically complete its task.",
+    "review": "Planned = nondeleted task count; completed = current completed tasks; overdue = incomplete tasks with due date before today in Seoul; blocked = unique tasks with a nonempty blocker reason in an active log. Expected time = active task expected-minute sum; actual time = active log actual-minute sum; difference = actual minus expected. Metric buttons show their supporting tasks or logs. One versioned improvement per plan may target a later plan and appears on that plan's review.",
+    "data": "No auto-seeded study execution records. The user enters real sessions after studying.",
+    "export": "GET /api/export downloads one UTF-8 JSON attachment (format pds-study-diary, exportVersion 1). A single read-only D1 batch exports every row of all five tables, including plan history, soft-deleted rows and test records. tables uses literal database table and column names; tasks.tags remains a JSON TEXT string. Preserve UUIDs, versions, nulls, calendar dates, UTC timestamps and minutes without conversion. Metadata includes exportedAt, schemaVersion, timezone, timeUnit, includesDeleted and this schemaContract. Unsaved form drafts are excluded. An empty database exports five empty arrays. Failure returns HTTP 503 JSON without an attachment; the UI supports retry."
+  }
+}
