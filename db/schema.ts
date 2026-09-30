@@ -2,7 +2,39 @@ import { sqliteTable, text, integer, primaryKey, check, index } from "drizzle-or
 import { sql } from "drizzle-orm";
 export const plans = sqliteTable("plans", {
   id: text("id").primaryKey(), createdAt: text("created_at").notNull(),
+  ownerId: text("owner_id"),
+}, (t) => [index("plans_owner_idx").on(t.ownerId)]);
+
+export const authUser = sqliteTable("auth_user", {
+  id: text("id").primaryKey(), name: text("name").notNull(),
+  email: text("email").notNull().unique(), emailVerified: integer("email_verified", { mode: "boolean" }).notNull(),
+  image: text("image"), createdAt: integer("created_at", { mode: "timestamp_ms" }).notNull(),
+  updatedAt: integer("updated_at", { mode: "timestamp_ms" }).notNull(),
 });
+export const authSession = sqliteTable("auth_session", {
+  id: text("id").primaryKey(), token: text("token").notNull().unique(),
+  userId: text("user_id").notNull().references(() => authUser.id, { onDelete: "cascade" }),
+  expiresAt: integer("expires_at", { mode: "timestamp_ms" }).notNull(),
+  createdAt: integer("created_at", { mode: "timestamp_ms" }).notNull(),
+  updatedAt: integer("updated_at", { mode: "timestamp_ms" }).notNull(),
+  ipAddress: text("ip_address"), userAgent: text("user_agent"),
+}, (t) => [index("auth_session_user_idx").on(t.userId)]);
+export const authAccount = sqliteTable("auth_account", {
+  id: text("id").primaryKey(), accountId: text("account_id").notNull(), providerId: text("provider_id").notNull(),
+  userId: text("user_id").notNull().references(() => authUser.id, { onDelete: "cascade" }),
+  password: text("password"), accessToken: text("access_token"), refreshToken: text("refresh_token"),
+  idToken: text("id_token"), scope: text("scope"),
+  accessTokenExpiresAt: integer("access_token_expires_at", { mode: "timestamp_ms" }),
+  refreshTokenExpiresAt: integer("refresh_token_expires_at", { mode: "timestamp_ms" }),
+  createdAt: integer("created_at", { mode: "timestamp_ms" }).notNull(),
+  updatedAt: integer("updated_at", { mode: "timestamp_ms" }).notNull(),
+}, (t) => [index("auth_account_user_idx").on(t.userId)]);
+export const authVerification = sqliteTable("auth_verification", {
+  id: text("id").primaryKey(), identifier: text("identifier").notNull(), value: text("value").notNull(),
+  expiresAt: integer("expires_at", { mode: "timestamp_ms" }).notNull(),
+  createdAt: integer("created_at", { mode: "timestamp_ms" }).notNull(),
+  updatedAt: integer("updated_at", { mode: "timestamp_ms" }).notNull(),
+}, (t) => [index("auth_verification_identifier_idx").on(t.identifier)]);
 export const planVersions = sqliteTable("plan_versions", {
   planId: text("plan_id").notNull().references(() => plans.id),
   version: integer("version").notNull(), title: text("title").notNull(),

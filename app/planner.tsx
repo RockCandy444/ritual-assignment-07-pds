@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef, useState, type FormEvent } from "react";
-import { BookOpen, CalendarDays, Clock3, History, NotebookPen, Save, ShieldAlert } from "lucide-react";
+import { BookOpen, CalendarDays, Clock3, History, NotebookPen, Save, LockKeyhole } from "lucide-react";
+import AccountPanel from "./account-panel";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -18,7 +19,7 @@ async function requestApi(url: string, options?: RequestInit) {
   if (!response.ok) throw new Error(body.error || "요청을 처리하지 못했어요.");
   return body;
 }
-export default function Planner() {
+export default function Planner({ user }: { user: { name: string; email: string } }) {
   const [draft, setDraft] = useState<PlanInput>(initial);
   const [plans, setPlans] = useState<PlanVersion[]>([]);
   const [editing, setEditing] = useState<PlanVersion | null>(null);
@@ -89,9 +90,10 @@ export default function Planner() {
   }
   return (
     <div className="app-shell">
-      <header className="masthead"><div className="brand"><NotebookPen aria-hidden="true" /><span>플랜두씨<span className="brand-sub">공부 다이어리</span></span></div><span className="phase">01–05 / 공부 다이어리</span></header>
+      <header className="masthead"><div className="brand"><NotebookPen aria-hidden="true" /><span>플랜두씨<span className="brand-sub">공부 다이어리</span></span></div><span className="phase">나만의 공부 공간</span></header>
       <main>
-        <div className="privacy-note"><ShieldAlert size={18} aria-hidden="true" /><p>지금은 로그인이 없어 링크를 아는 사람은 누구나 볼 수 있습니다. 남이 봐도 괜찮은 내용만 넣으세요</p></div>
+        <AccountPanel user={user} />
+        <div className="privacy-note"><LockKeyhole size={18} aria-hidden="true" /><p>내 계정의 공부 자료만 표시합니다. 공용 컴퓨터에서는 사용 후 로그아웃해 주세요.</p></div>
         <div className="page-heading"><div><p className="eyebrow">MY STUDY PLAN</p><h1>작게 계획하고,<br className="mobile-break" /> 꾸준히 쌓기.</h1><p className="intro">12월 N2를 향해. 이번 주에 할 수 있는 만큼 정해 보세요.</p></div><div className="goal-mark"><span>JLPT</span><strong>N2</strong><span>2026년 12월 목표</span></div></div>
         <div className="workspace">
           <section className="form-panel" aria-labelledby="form-title">

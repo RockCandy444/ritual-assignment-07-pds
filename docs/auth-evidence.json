@@ -1,0 +1,2788 @@
+{
+  "summary": {
+    "runId": "dd1fd705-0d30-428b-9ff4-e3d90573fc4b",
+    "origin": "http://127.0.0.1:5177",
+    "capturedAt": "2026-09-30T06:56:02.856Z",
+    "authLibrary": "better-auth 1.7.6",
+    "adapter": "@better-auth/drizzle-adapter 1.7.6",
+    "passwordHash": "scrypt",
+    "cases": 83,
+    "result": "passed",
+    "importVerification": "원본 모든 표·열·값·ID·이력 일치, 재가져오기 거절, 다른 계정 ID 충돌 롤백 통과",
+    "testAccountsRemoved": true,
+    "realStudyDaysGenerated": 0
+  },
+  "records": [
+    {
+      "label": "비로그인 자료 화면",
+      "request": {
+        "method": "GET",
+        "endpoint": "/diary",
+        "cookie": null,
+        "headers": {}
+      },
+      "response": {
+        "status": 307,
+        "body": {
+          "location": "/",
+          "htmlOmitted": true
+        },
+        "sessionCookie": null
+      }
+    },
+    {
+      "label": "비로그인 직접 요청",
+      "request": {
+        "method": "GET",
+        "endpoint": "/api/plans",
+        "cookie": null,
+        "headers": {}
+      },
+      "response": {
+        "status": 401,
+        "body": {
+          "error": "로그인이 필요합니다."
+        },
+        "sessionCookie": null
+      }
+    },
+    {
+      "label": "비로그인 직접 요청",
+      "request": {
+        "method": "GET",
+        "endpoint": "/api/tasks?planId=bbb18c5f-f1c2-4d65-a56a-52b4496aecef",
+        "cookie": null,
+        "headers": {}
+      },
+      "response": {
+        "status": 401,
+        "body": {
+          "error": "로그인이 필요합니다."
+        },
+        "sessionCookie": null
+      }
+    },
+    {
+      "label": "비로그인 직접 요청",
+      "request": {
+        "method": "GET",
+        "endpoint": "/api/study-logs?planId=95fe63a3-d0f3-432a-be9d-b7293e1d6db0",
+        "cookie": null,
+        "headers": {}
+      },
+      "response": {
+        "status": 401,
+        "body": {
+          "error": "로그인이 필요합니다."
+        },
+        "sessionCookie": null
+      }
+    },
+    {
+      "label": "비로그인 직접 요청",
+      "request": {
+        "method": "GET",
+        "endpoint": "/api/reviews?planId=7e02c1df-bda0-4b43-b0b5-0a7e58c8ad0d",
+        "cookie": null,
+        "headers": {}
+      },
+      "response": {
+        "status": 401,
+        "body": {
+          "error": "로그인이 필요합니다."
+        },
+        "sessionCookie": null
+      }
+    },
+    {
+      "label": "비로그인 직접 요청",
+      "request": {
+        "method": "GET",
+        "endpoint": "/api/export",
+        "cookie": null,
+        "headers": {}
+      },
+      "response": {
+        "status": 401,
+        "body": {
+          "error": "로그인이 필요합니다."
+        },
+        "sessionCookie": null
+      }
+    },
+    {
+      "label": "가입 A",
+      "request": {
+        "method": "POST",
+        "endpoint": "/api/auth/sign-up/email",
+        "cookie": null,
+        "headers": {},
+        "body": {
+          "name": "[테스트] A",
+          "email": "t07-check-dd1fd705-0d30-428b-9ff4-e3d90573fc4b-A@example.invalid",
+          "password": "[가림]"
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "user": {
+            "name": "[테스트] A",
+            "email": "t07-check-dd1fd705-0d30-428b-9ff4-e3d90573fc4b-a@example.invalid",
+            "emailVerified": false,
+            "image": null,
+            "createdAt": "2026-09-30T06:55:40.790Z",
+            "updatedAt": "2026-09-30T06:55:40.790Z",
+            "id": "8d3afd27-9cd1-419f-8ff6-740f70d2c591"
+          }
+        },
+        "sessionCookie": "[가림]"
+      }
+    },
+    {
+      "label": "가입 B",
+      "request": {
+        "method": "POST",
+        "endpoint": "/api/auth/sign-up/email",
+        "cookie": null,
+        "headers": {},
+        "body": {
+          "name": "[테스트] B",
+          "email": "t07-check-dd1fd705-0d30-428b-9ff4-e3d90573fc4b-B@example.invalid",
+          "password": "[가림]"
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "user": {
+            "name": "[테스트] B",
+            "email": "t07-check-dd1fd705-0d30-428b-9ff4-e3d90573fc4b-b@example.invalid",
+            "emailVerified": false,
+            "image": null,
+            "createdAt": "2026-09-30T06:55:40.871Z",
+            "updatedAt": "2026-09-30T06:55:40.871Z",
+            "id": "c116b393-60b4-478e-8cc3-aa37085980ed"
+          }
+        },
+        "sessionCookie": "[가림]"
+      }
+    },
+    {
+      "label": "같은 비밀번호의 저장값 대조",
+      "algorithm": "scrypt",
+      "parameters": {
+        "N": 16384,
+        "r": 16,
+        "p": 1,
+        "dkLen": 64
+      },
+      "storedHashes": [
+        "02cf7fd9e147a916dc9c11b1c2e13153:874591b17d60490609d0f26daffde054cedbdc53d5de68dd838d3544f72097cb197566b904a6981014e6d8ce1c3798bed3d572c00f7d7d6b95de3591a4fe2c60",
+        "122f7cfd33f760185a3ab672dd210333:83505ad8265260c36b0170291287bbdb22e4c17ffe8148d6dd3c7a6f2c66d1903b4db949ae45dd44b5b562c03d40b9899f1016873816187aff4bd034b4b1edc6"
+      ],
+      "plaintextVisible": false
+    },
+    {
+      "label": "중복 가입",
+      "request": {
+        "method": "POST",
+        "endpoint": "/api/auth/sign-up/email",
+        "cookie": null,
+        "headers": {},
+        "body": {
+          "name": "[테스트] A",
+          "email": "t07-check-dd1fd705-0d30-428b-9ff4-e3d90573fc4b-A@example.invalid",
+          "password": "[가림]"
+        }
+      },
+      "response": {
+        "status": 422,
+        "body": {
+          "message": "User already exists. Use another email.",
+          "code": "USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL"
+        },
+        "sessionCookie": null
+      }
+    },
+    {
+      "label": "로그인 A",
+      "request": {
+        "method": "POST",
+        "endpoint": "/api/auth/sign-in/email",
+        "cookie": null,
+        "headers": {},
+        "body": {
+          "email": "t07-check-dd1fd705-0d30-428b-9ff4-e3d90573fc4b-A@example.invalid",
+          "password": "[가림]"
+        }
+      },
+      "response": {
+        "status": 401,
+        "body": {
+          "error": "이메일 또는 비밀번호를 확인해 주세요."
+        },
+        "sessionCookie": null
+      }
+    },
+    {
+      "label": "없는 이메일 로그인",
+      "request": {
+        "method": "POST",
+        "endpoint": "/api/auth/sign-in/email",
+        "cookie": null,
+        "headers": {},
+        "body": {
+          "email": "t07-check-dd1fd705-0d30-428b-9ff4-e3d90573fc4b-absent@example.invalid",
+          "password": "[가림]"
+        }
+      },
+      "response": {
+        "status": 401,
+        "body": {
+          "error": "이메일 또는 비밀번호를 확인해 주세요."
+        },
+        "sessionCookie": null
+      }
+    },
+    {
+      "label": "로그아웃 전 같은 요청",
+      "request": {
+        "method": "GET",
+        "endpoint": "/api/plans",
+        "cookie": "[가림]",
+        "headers": {}
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "plans": []
+        },
+        "sessionCookie": null
+      }
+    },
+    {
+      "label": "로그아웃",
+      "request": {
+        "method": "POST",
+        "endpoint": "/api/auth/sign-out",
+        "cookie": "[가림]",
+        "headers": {},
+        "body": {}
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "success": true
+        },
+        "sessionCookie": "[가림]"
+      }
+    },
+    {
+      "label": "로그아웃 후 같은 값·주소·방식",
+      "request": {
+        "method": "GET",
+        "endpoint": "/api/plans",
+        "cookie": "[가림]",
+        "headers": {}
+      },
+      "response": {
+        "status": 401,
+        "body": {
+          "error": "로그인이 필요합니다."
+        },
+        "sessionCookie": null
+      }
+    },
+    {
+      "label": "로그인 A",
+      "request": {
+        "method": "POST",
+        "endpoint": "/api/auth/sign-in/email",
+        "cookie": null,
+        "headers": {},
+        "body": {
+          "email": "t07-check-dd1fd705-0d30-428b-9ff4-e3d90573fc4b-A@example.invalid",
+          "password": "[가림]"
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "redirect": false,
+          "user": {
+            "name": "[테스트] A",
+            "email": "t07-check-dd1fd705-0d30-428b-9ff4-e3d90573fc4b-a@example.invalid",
+            "emailVerified": false,
+            "image": null,
+            "createdAt": "2026-09-30T06:55:40.790Z",
+            "updatedAt": "2026-09-30T06:55:40.790Z",
+            "id": "8d3afd27-9cd1-419f-8ff6-740f70d2c591"
+          }
+        },
+        "sessionCookie": "[가림]"
+      }
+    },
+    {
+      "label": "세션 만료 시각과 토큰 비노출",
+      "request": {
+        "method": "GET",
+        "endpoint": "/api/auth/get-session",
+        "cookie": "[가림]",
+        "headers": {}
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "session": {
+            "expiresAt": "2026-10-01T06:55:41.174Z",
+            "createdAt": "2026-09-30T06:55:41.174Z",
+            "updatedAt": "2026-09-30T06:55:41.174Z",
+            "ipAddress": "",
+            "userAgent": "node",
+            "userId": "8d3afd27-9cd1-419f-8ff6-740f70d2c591",
+            "id": "e9391a35-04a8-434e-9247-c275ba71df7a"
+          },
+          "user": {
+            "name": "[테스트] A",
+            "email": "t07-check-dd1fd705-0d30-428b-9ff4-e3d90573fc4b-a@example.invalid",
+            "emailVerified": false,
+            "image": null,
+            "createdAt": "2026-09-30T06:55:40.790Z",
+            "updatedAt": "2026-09-30T06:55:40.790Z",
+            "id": "8d3afd27-9cd1-419f-8ff6-740f70d2c591"
+          }
+        },
+        "sessionCookie": null
+      }
+    },
+    {
+      "label": "계획 생성 A",
+      "request": {
+        "method": "POST",
+        "endpoint": "/api/plans",
+        "cookie": "[가림]",
+        "headers": {},
+        "body": {
+          "id": "6147d19c-d06c-4fca-9b5c-463bc8bf4bfc",
+          "expectedVersion": 0,
+          "plan": {
+            "title": "[테스트] A 계획",
+            "startDate": "2026-09-30",
+            "endDate": "2026-10-02",
+            "priority": "normal",
+            "successCriteria": "검증 전용 자료",
+            "expectedMinutes": 30
+          }
+        }
+      },
+      "response": {
+        "status": 201,
+        "body": {
+          "plan": {
+            "title": "[테스트] A 계획",
+            "startDate": "2026-09-30",
+            "endDate": "2026-10-02",
+            "priority": "normal",
+            "successCriteria": "검증 전용 자료",
+            "expectedMinutes": 30,
+            "id": "6147d19c-d06c-4fca-9b5c-463bc8bf4bfc",
+            "version": 1,
+            "savedAt": "2026-09-30T06:55:41.224Z"
+          }
+        },
+        "sessionCookie": null
+      }
+    },
+    {
+      "label": "계획 생성 A",
+      "request": {
+        "method": "POST",
+        "endpoint": "/api/plans",
+        "cookie": "[가림]",
+        "headers": {},
+        "body": {
+          "id": "60637ebb-3852-4ce6-bdd1-f854bca19c96",
+          "expectedVersion": 0,
+          "plan": {
+            "title": "[테스트] A 계획",
+            "startDate": "2026-10-03",
+            "endDate": "2026-10-05",
+            "priority": "normal",
+            "successCriteria": "검증 전용 자료",
+            "expectedMinutes": 30
+          }
+        }
+      },
+      "response": {
+        "status": 201,
+        "body": {
+          "plan": {
+            "title": "[테스트] A 계획",
+            "startDate": "2026-10-03",
+            "endDate": "2026-10-05",
+            "priority": "normal",
+            "successCriteria": "검증 전용 자료",
+            "expectedMinutes": 30,
+            "id": "60637ebb-3852-4ce6-bdd1-f854bca19c96",
+            "version": 1,
+            "savedAt": "2026-09-30T06:55:41.256Z"
+          }
+        },
+        "sessionCookie": null
+      }
+    },
+    {
+      "label": "할 일 생성 A",
+      "request": {
+        "method": "POST",
+        "endpoint": "/api/tasks",
+        "cookie": "[가림]",
+        "headers": {},
+        "body": {
+          "id": "23cf6c1a-1aa5-400a-bb85-a7582b51419b",
+          "planId": "6147d19c-d06c-4fca-9b5c-463bc8bf4bfc",
+          "task": {
+            "title": "[테스트] A 할 일",
+            "dueDate": null,
+            "priority": "normal",
+            "tags": [
+              "테스트"
+            ],
+            "expectedMinutes": 20
+          }
+        }
+      },
+      "response": {
+        "status": 201,
+        "body": {
+          "task": {
+            "id": "23cf6c1a-1aa5-400a-bb85-a7582b51419b",
+            "planId": "6147d19c-d06c-4fca-9b5c-463bc8bf4bfc",
+            "title": "[테스트] A 할 일",
+            "dueDate": null,
+            "priority": "normal",
+            "tags": [
+              "테스트"
+            ],
+            "expectedMinutes": 20,
+            "completedAt": null,
+            "createdAt": "2026-09-30T06:55:41.289Z",
+            "updatedAt": "2026-09-30T06:55:41.289Z",
+            "version": 1
+          }
+        },
+        "sessionCookie": null
+      }
+    },
+    {
+      "label": "공부 기록 생성 A",
+      "request": {
+        "method": "POST",
+        "endpoint": "/api/study-logs",
+        "cookie": "[가림]",
+        "headers": {},
+        "body": {
+          "id": "265ad5c3-edf7-4a40-8be0-6a08825282fb",
+          "planId": "6147d19c-d06c-4fca-9b5c-463bc8bf4bfc",
+          "log": {
+            "taskId": "23cf6c1a-1aa5-400a-bb85-a7582b51419b",
+            "startedAt": "2026-09-30T06:25:41.288Z",
+            "endedAt": "2026-09-30T06:45:41.289Z",
+            "actualMinutes": 10,
+            "studiedContent": "[테스트] 인증 검증용 기록",
+            "blockerReason": null
+          }
+        }
+      },
+      "response": {
+        "status": 201,
+        "body": {
+          "log": {
+            "id": "265ad5c3-edf7-4a40-8be0-6a08825282fb",
+            "taskId": "23cf6c1a-1aa5-400a-bb85-a7582b51419b",
+            "startedAt": "2026-09-30T06:25:41.288Z",
+            "endedAt": "2026-09-30T06:45:41.289Z",
+            "actualMinutes": 10,
+            "studiedContent": "[테스트] 인증 검증용 기록",
+            "blockerReason": null,
+            "createdAt": "2026-09-30T06:55:41.311Z",
+            "updatedAt": "2026-09-30T06:55:41.311Z",
+            "version": 1
+          }
+        },
+        "sessionCookie": null
+      }
+    },
+    {
+      "label": "돌아보기 생성 A",
+      "request": {
+        "method": "POST",
+        "endpoint": "/api/reviews",
+        "cookie": "[가림]",
+        "headers": {},
+        "body": {
+          "planId": "6147d19c-d06c-4fca-9b5c-463bc8bf4bfc",
+          "expectedVersion": 0,
+          "review": {
+            "nextPlanId": "60637ebb-3852-4ce6-bdd1-f854bca19c96",
+            "improvement": "[테스트] 다음 검증에서도 같은 지표 사용"
+          }
+        }
+      },
+      "response": {
+        "status": 201,
+        "body": {
+          "review": {
+            "planId": "6147d19c-d06c-4fca-9b5c-463bc8bf4bfc",
+            "nextPlanId": "60637ebb-3852-4ce6-bdd1-f854bca19c96",
+            "improvement": "[테스트] 다음 검증에서도 같은 지표 사용",
+            "createdAt": "2026-09-30T06:55:41.341Z",
+            "updatedAt": "2026-09-30T06:55:41.341Z",
+            "version": 1
+          }
+        },
+        "sessionCookie": null
+      }
+    },
+    {
+      "label": "계획 생성 B",
+      "request": {
+        "method": "POST",
+        "endpoint": "/api/plans",
+        "cookie": "[가림]",
+        "headers": {},
+        "body": {
+          "id": "ec975872-e96b-427a-8782-8a5c67caa9b3",
+          "expectedVersion": 0,
+          "plan": {
+            "title": "[테스트] B 계획",
+            "startDate": "2026-09-30",
+            "endDate": "2026-10-02",
+            "priority": "normal",
+            "successCriteria": "검증 전용 자료",
+            "expectedMinutes": 30
+          }
+        }
+      },
+      "response": {
+        "status": 201,
+        "body": {
+          "plan": {
+            "title": "[테스트] B 계획",
+            "startDate": "2026-09-30",
+            "endDate": "2026-10-02",
+            "priority": "normal",
+            "successCriteria": "검증 전용 자료",
+            "expectedMinutes": 30,
+            "id": "ec975872-e96b-427a-8782-8a5c67caa9b3",
+            "version": 1,
+            "savedAt": "2026-09-30T06:55:41.362Z"
+          }
+        },
+        "sessionCookie": null
+      }
+    },
+    {
+      "label": "계획 생성 B",
+      "request": {
+        "method": "POST",
+        "endpoint": "/api/plans",
+        "cookie": "[가림]",
+        "headers": {},
+        "body": {
+          "id": "32fcb6a9-0fab-47d8-bf82-273177394fda",
+          "expectedVersion": 0,
+          "plan": {
+            "title": "[테스트] B 계획",
+            "startDate": "2026-10-03",
+            "endDate": "2026-10-05",
+            "priority": "normal",
+            "successCriteria": "검증 전용 자료",
+            "expectedMinutes": 30
+          }
+        }
+      },
+      "response": {
+        "status": 201,
+        "body": {
+          "plan": {
+            "title": "[테스트] B 계획",
+            "startDate": "2026-10-03",
+            "endDate": "2026-10-05",
+            "priority": "normal",
+            "successCriteria": "검증 전용 자료",
+            "expectedMinutes": 30,
+            "id": "32fcb6a9-0fab-47d8-bf82-273177394fda",
+            "version": 1,
+            "savedAt": "2026-09-30T06:55:41.390Z"
+          }
+        },
+        "sessionCookie": null
+      }
+    },
+    {
+      "label": "할 일 생성 B",
+      "request": {
+        "method": "POST",
+        "endpoint": "/api/tasks",
+        "cookie": "[가림]",
+        "headers": {},
+        "body": {
+          "id": "c488a0a2-5cd9-4394-a53b-95d6c2b825c0",
+          "planId": "ec975872-e96b-427a-8782-8a5c67caa9b3",
+          "task": {
+            "title": "[테스트] B 할 일",
+            "dueDate": null,
+            "priority": "normal",
+            "tags": [
+              "테스트"
+            ],
+            "expectedMinutes": 20
+          }
+        }
+      },
+      "response": {
+        "status": 201,
+        "body": {
+          "task": {
+            "id": "c488a0a2-5cd9-4394-a53b-95d6c2b825c0",
+            "planId": "ec975872-e96b-427a-8782-8a5c67caa9b3",
+            "title": "[테스트] B 할 일",
+            "dueDate": null,
+            "priority": "normal",
+            "tags": [
+              "테스트"
+            ],
+            "expectedMinutes": 20,
+            "completedAt": null,
+            "createdAt": "2026-09-30T06:55:41.423Z",
+            "updatedAt": "2026-09-30T06:55:41.423Z",
+            "version": 1
+          }
+        },
+        "sessionCookie": null
+      }
+    },
+    {
+      "label": "공부 기록 생성 B",
+      "request": {
+        "method": "POST",
+        "endpoint": "/api/study-logs",
+        "cookie": "[가림]",
+        "headers": {},
+        "body": {
+          "id": "5d19ae12-e83c-491d-8f4a-812790d0f438",
+          "planId": "ec975872-e96b-427a-8782-8a5c67caa9b3",
+          "log": {
+            "taskId": "c488a0a2-5cd9-4394-a53b-95d6c2b825c0",
+            "startedAt": "2026-09-30T06:25:41.422Z",
+            "endedAt": "2026-09-30T06:45:41.422Z",
+            "actualMinutes": 10,
+            "studiedContent": "[테스트] 인증 검증용 기록",
+            "blockerReason": null
+          }
+        }
+      },
+      "response": {
+        "status": 201,
+        "body": {
+          "log": {
+            "id": "5d19ae12-e83c-491d-8f4a-812790d0f438",
+            "taskId": "c488a0a2-5cd9-4394-a53b-95d6c2b825c0",
+            "startedAt": "2026-09-30T06:25:41.422Z",
+            "endedAt": "2026-09-30T06:45:41.422Z",
+            "actualMinutes": 10,
+            "studiedContent": "[테스트] 인증 검증용 기록",
+            "blockerReason": null,
+            "createdAt": "2026-09-30T06:55:41.460Z",
+            "updatedAt": "2026-09-30T06:55:41.460Z",
+            "version": 1
+          }
+        },
+        "sessionCookie": null
+      }
+    },
+    {
+      "label": "돌아보기 생성 B",
+      "request": {
+        "method": "POST",
+        "endpoint": "/api/reviews",
+        "cookie": "[가림]",
+        "headers": {},
+        "body": {
+          "planId": "ec975872-e96b-427a-8782-8a5c67caa9b3",
+          "expectedVersion": 0,
+          "review": {
+            "nextPlanId": "32fcb6a9-0fab-47d8-bf82-273177394fda",
+            "improvement": "[테스트] 다음 검증에서도 같은 지표 사용"
+          }
+        }
+      },
+      "response": {
+        "status": 201,
+        "body": {
+          "review": {
+            "planId": "ec975872-e96b-427a-8782-8a5c67caa9b3",
+            "nextPlanId": "32fcb6a9-0fab-47d8-bf82-273177394fda",
+            "improvement": "[테스트] 다음 검증에서도 같은 지표 사용",
+            "createdAt": "2026-09-30T06:55:41.492Z",
+            "updatedAt": "2026-09-30T06:55:41.492Z",
+            "version": 1
+          }
+        },
+        "sessionCookie": null
+      }
+    },
+    {
+      "label": "A 정상 내보내기",
+      "request": {
+        "method": "GET",
+        "endpoint": "/api/export",
+        "cookie": "[가림]",
+        "headers": {}
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "format": "pds-study-diary",
+          "exportVersion": 1,
+          "schemaVersion": 2,
+          "exportedAt": "2026-09-30T06:55:41.523Z",
+          "timezone": "Asia/Seoul",
+          "timeUnit": "minutes",
+          "includesDeleted": true,
+          "schemaContract": {
+            "schemaVersion": 2,
+            "stage": "T06 cards 1–5 — plans, tasks, study logs, reviews and full JSON export",
+            "status": "implemented; real study records, final verification and submission are pending",
+            "timezone": "Asia/Seoul",
+            "tables": {
+              "plans": {
+                "primaryKey": [
+                  "id"
+                ],
+                "columns": {
+                  "id": "UUID v4 TEXT",
+                  "created_at": "UTC ISO 8601 TEXT"
+                }
+              },
+              "plan_versions": {
+                "primaryKey": [
+                  "plan_id",
+                  "version"
+                ],
+                "foreignKeys": [
+                  {
+                    "column": "plan_id",
+                    "references": "plans.id"
+                  }
+                ],
+                "columns": {
+                  "plan_id": "UUID v4 TEXT",
+                  "version": "positive INTEGER",
+                  "title": "TEXT 1..120 chars",
+                  "start_date": "YYYY-MM-DD TEXT",
+                  "end_date": "YYYY-MM-DD TEXT >= start_date",
+                  "priority": "high | normal | low",
+                  "success_criteria": "TEXT 1..2000 chars",
+                  "expected_minutes": "INTEGER 1..100000",
+                  "saved_at": "UTC ISO 8601 TEXT"
+                }
+              },
+              "tasks": {
+                "primaryKey": [
+                  "id"
+                ],
+                "foreignKeys": [
+                  {
+                    "column": "plan_id",
+                    "references": "plans.id"
+                  }
+                ],
+                "columns": {
+                  "id": "UUID v4 TEXT",
+                  "plan_id": "UUID v4 TEXT",
+                  "title": "TEXT 1..120 chars",
+                  "due_date": "nullable YYYY-MM-DD TEXT",
+                  "priority": "high | normal | low",
+                  "tags": "JSON TEXT array of up to 8 unique tags, each 1..24 chars",
+                  "expected_minutes": "INTEGER 1..100000",
+                  "completed_at": "nullable UTC ISO 8601 TEXT",
+                  "deleted_at": "nullable UTC ISO 8601 TEXT",
+                  "created_at": "UTC ISO 8601 TEXT",
+                  "updated_at": "UTC ISO 8601 TEXT",
+                  "version": "positive INTEGER"
+                }
+              },
+              "study_logs": {
+                "primaryKey": [
+                  "id"
+                ],
+                "foreignKeys": [
+                  {
+                    "column": "task_id",
+                    "references": "tasks.id"
+                  }
+                ],
+                "columns": {
+                  "id": "UUID v4 TEXT",
+                  "task_id": "UUID v4 TEXT",
+                  "started_at": "UTC ISO 8601 TEXT",
+                  "ended_at": "UTC ISO 8601 TEXT > started_at",
+                  "actual_minutes": "INTEGER 1..100000 <= elapsed minutes",
+                  "studied_content": "TEXT 1..2000 chars",
+                  "blocker_reason": "nullable TEXT 1..1000 chars",
+                  "created_at": "UTC ISO 8601 TEXT",
+                  "updated_at": "UTC ISO 8601 TEXT",
+                  "deleted_at": "nullable UTC ISO 8601 TEXT",
+                  "version": "positive INTEGER"
+                }
+              },
+              "plan_reviews": {
+                "primaryKey": [
+                  "plan_id"
+                ],
+                "foreignKeys": [
+                  {
+                    "column": "plan_id",
+                    "references": "plans.id"
+                  },
+                  {
+                    "column": "next_plan_id",
+                    "references": "plans.id"
+                  }
+                ],
+                "columns": {
+                  "plan_id": "UUID v4 TEXT",
+                  "next_plan_id": "UUID v4 TEXT != plan_id; next plan begins on or after source plan ends",
+                  "improvement": "TEXT 1..1000 chars; one improvement per source plan",
+                  "created_at": "UTC ISO 8601 TEXT",
+                  "updated_at": "UTC ISO 8601 TEXT",
+                  "version": "positive INTEGER"
+                }
+              }
+            },
+            "rules": {
+              "dates": "Calendar dates are stored literally without UTC conversion; years 2000..2100. Display timestamps in Asia/Seoul.",
+              "timeUnit": "minutes",
+              "expectedTime": "Total for this plan period, not per-session duration. Initial unsaved draft proposes 120 minutes.",
+              "history": "Append-only versions. Version 1 preserves the original. Latest version is current; update uses expectedVersion to reject stale writes.",
+              "atomicity": "Plan creation and first revision use a D1 transaction batch. Revision insert uses a conditional SELECT and composite primary key.",
+              "tasks": "Tasks belong to plans. Searches, filters and sorting use non-deleted tasks. Completion is idempotent; repeated complete requests do not increment version. Deletion sets deleted_at for execution-log referential integrity. Edits and deletion use expectedVersion to reject stale writes.",
+              "studyLogs": "Logs belong to tasks in the selected plan. Only logs for active tasks count in lists. Repeated creation with the same UUID is rejected. Edits and soft deletion use expectedVersion. Saved times are UTC and shown as Seoul time. Saving a log does not automatically complete its task.",
+              "review": "Planned = nondeleted task count; completed = current completed tasks; overdue = incomplete tasks with due date before today in Seoul; blocked = unique tasks with a nonempty blocker reason in an active log. Expected time = active task expected-minute sum; actual time = active log actual-minute sum; difference = actual minus expected. Metric buttons show their supporting tasks or logs. One versioned improvement per plan may target a later plan and appears on that plan's review.",
+              "data": "No auto-seeded study execution records. The user enters real sessions after studying.",
+              "export": "GET /api/export downloads one UTF-8 JSON attachment (format pds-study-diary, exportVersion 1). A single read-only D1 batch exports every row of all five tables, including plan history, soft-deleted rows and test records. tables uses literal database table and column names; tasks.tags remains a JSON TEXT string. Preserve UUIDs, versions, nulls, calendar dates, UTC timestamps and minutes without conversion. Metadata includes exportedAt, schemaVersion, timezone, timeUnit, includesDeleted and this schemaContract. Unsaved form drafts are excluded. An empty database exports five empty arrays. Failure returns HTTP 503 JSON without an attachment; the UI supports retry."
+            }
+          },
+          "tables": {
+            "plans": [
+              {
+                "id": "60637ebb-3852-4ce6-bdd1-f854bca19c96",
+                "created_at": "2026-09-30T06:55:41.256Z"
+              },
+              {
+                "id": "6147d19c-d06c-4fca-9b5c-463bc8bf4bfc",
+                "created_at": "2026-09-30T06:55:41.224Z"
+              }
+            ],
+            "plan_versions": [
+              {
+                "plan_id": "60637ebb-3852-4ce6-bdd1-f854bca19c96",
+                "version": 1,
+                "title": "[테스트] A 계획",
+                "start_date": "2026-10-03",
+                "end_date": "2026-10-05",
+                "priority": "normal",
+                "success_criteria": "검증 전용 자료",
+                "expected_minutes": 30,
+                "saved_at": "2026-09-30T06:55:41.256Z"
+              },
+              {
+                "plan_id": "6147d19c-d06c-4fca-9b5c-463bc8bf4bfc",
+                "version": 1,
+                "title": "[테스트] A 계획",
+                "start_date": "2026-09-30",
+                "end_date": "2026-10-02",
+                "priority": "normal",
+                "success_criteria": "검증 전용 자료",
+                "expected_minutes": 30,
+                "saved_at": "2026-09-30T06:55:41.224Z"
+              }
+            ],
+            "tasks": [
+              {
+                "id": "23cf6c1a-1aa5-400a-bb85-a7582b51419b",
+                "plan_id": "6147d19c-d06c-4fca-9b5c-463bc8bf4bfc",
+                "title": "[테스트] A 할 일",
+                "due_date": null,
+                "priority": "normal",
+                "tags": "[\"테스트\"]",
+                "expected_minutes": 20,
+                "completed_at": null,
+                "deleted_at": null,
+                "created_at": "2026-09-30T06:55:41.289Z",
+                "updated_at": "2026-09-30T06:55:41.289Z",
+                "version": 1
+              }
+            ],
+            "study_logs": [
+              {
+                "id": "265ad5c3-edf7-4a40-8be0-6a08825282fb",
+                "task_id": "23cf6c1a-1aa5-400a-bb85-a7582b51419b",
+                "started_at": "2026-09-30T06:25:41.288Z",
+                "ended_at": "2026-09-30T06:45:41.289Z",
+                "actual_minutes": 10,
+                "studied_content": "[테스트] 인증 검증용 기록",
+                "blocker_reason": null,
+                "created_at": "2026-09-30T06:55:41.311Z",
+                "updated_at": "2026-09-30T06:55:41.311Z",
+                "deleted_at": null,
+                "version": 1
+              }
+            ],
+            "plan_reviews": [
+              {
+                "plan_id": "6147d19c-d06c-4fca-9b5c-463bc8bf4bfc",
+                "next_plan_id": "60637ebb-3852-4ce6-bdd1-f854bca19c96",
+                "improvement": "[테스트] 다음 검증에서도 같은 지표 사용",
+                "created_at": "2026-09-30T06:55:41.341Z",
+                "updated_at": "2026-09-30T06:55:41.341Z",
+                "version": 1
+              }
+            ]
+          }
+        },
+        "sessionCookie": null
+      }
+    },
+    {
+      "label": "B 정상 내보내기",
+      "request": {
+        "method": "GET",
+        "endpoint": "/api/export",
+        "cookie": "[가림]",
+        "headers": {}
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "format": "pds-study-diary",
+          "exportVersion": 1,
+          "schemaVersion": 2,
+          "exportedAt": "2026-09-30T06:55:41.541Z",
+          "timezone": "Asia/Seoul",
+          "timeUnit": "minutes",
+          "includesDeleted": true,
+          "schemaContract": {
+            "schemaVersion": 2,
+            "stage": "T06 cards 1–5 — plans, tasks, study logs, reviews and full JSON export",
+            "status": "implemented; real study records, final verification and submission are pending",
+            "timezone": "Asia/Seoul",
+            "tables": {
+              "plans": {
+                "primaryKey": [
+                  "id"
+                ],
+                "columns": {
+                  "id": "UUID v4 TEXT",
+                  "created_at": "UTC ISO 8601 TEXT"
+                }
+              },
+              "plan_versions": {
+                "primaryKey": [
+                  "plan_id",
+                  "version"
+                ],
+                "foreignKeys": [
+                  {
+                    "column": "plan_id",
+                    "references": "plans.id"
+                  }
+                ],
+                "columns": {
+                  "plan_id": "UUID v4 TEXT",
+                  "version": "positive INTEGER",
+                  "title": "TEXT 1..120 chars",
+                  "start_date": "YYYY-MM-DD TEXT",
+                  "end_date": "YYYY-MM-DD TEXT >= start_date",
+                  "priority": "high | normal | low",
+                  "success_criteria": "TEXT 1..2000 chars",
+                  "expected_minutes": "INTEGER 1..100000",
+                  "saved_at": "UTC ISO 8601 TEXT"
+                }
+              },
+              "tasks": {
+                "primaryKey": [
+                  "id"
+                ],
+                "foreignKeys": [
+                  {
+                    "column": "plan_id",
+                    "references": "plans.id"
+                  }
+                ],
+                "columns": {
+                  "id": "UUID v4 TEXT",
+                  "plan_id": "UUID v4 TEXT",
+                  "title": "TEXT 1..120 chars",
+                  "due_date": "nullable YYYY-MM-DD TEXT",
+                  "priority": "high | normal | low",
+                  "tags": "JSON TEXT array of up to 8 unique tags, each 1..24 chars",
+                  "expected_minutes": "INTEGER 1..100000",
+                  "completed_at": "nullable UTC ISO 8601 TEXT",
+                  "deleted_at": "nullable UTC ISO 8601 TEXT",
+                  "created_at": "UTC ISO 8601 TEXT",
+                  "updated_at": "UTC ISO 8601 TEXT",
+                  "version": "positive INTEGER"
+                }
+              },
+              "study_logs": {
+                "primaryKey": [
+                  "id"
+                ],
+                "foreignKeys": [
+                  {
+                    "column": "task_id",
+                    "references": "tasks.id"
+                  }
+                ],
+                "columns": {
+                  "id": "UUID v4 TEXT",
+                  "task_id": "UUID v4 TEXT",
+                  "started_at": "UTC ISO 8601 TEXT",
+                  "ended_at": "UTC ISO 8601 TEXT > started_at",
+                  "actual_minutes": "INTEGER 1..100000 <= elapsed minutes",
+                  "studied_content": "TEXT 1..2000 chars",
+                  "blocker_reason": "nullable TEXT 1..1000 chars",
+                  "created_at": "UTC ISO 8601 TEXT",
+                  "updated_at": "UTC ISO 8601 TEXT",
+                  "deleted_at": "nullable UTC ISO 8601 TEXT",
+                  "version": "positive INTEGER"
+                }
+              },
+              "plan_reviews": {
+                "primaryKey": [
+                  "plan_id"
+                ],
+                "foreignKeys": [
+                  {
+                    "column": "plan_id",
+                    "references": "plans.id"
+                  },
+                  {
+                    "column": "next_plan_id",
+                    "references": "plans.id"
+                  }
+                ],
+                "columns": {
+                  "plan_id": "UUID v4 TEXT",
+                  "next_plan_id": "UUID v4 TEXT != plan_id; next plan begins on or after source plan ends",
+                  "improvement": "TEXT 1..1000 chars; one improvement per source plan",
+                  "created_at": "UTC ISO 8601 TEXT",
+                  "updated_at": "UTC ISO 8601 TEXT",
+                  "version": "positive INTEGER"
+                }
+              }
+            },
+            "rules": {
+              "dates": "Calendar dates are stored literally without UTC conversion; years 2000..2100. Display timestamps in Asia/Seoul.",
+              "timeUnit": "minutes",
+              "expectedTime": "Total for this plan period, not per-session duration. Initial unsaved draft proposes 120 minutes.",
+              "history": "Append-only versions. Version 1 preserves the original. Latest version is current; update uses expectedVersion to reject stale writes.",
+              "atomicity": "Plan creation and first revision use a D1 transaction batch. Revision insert uses a conditional SELECT and composite primary key.",
+              "tasks": "Tasks belong to plans. Searches, filters and sorting use non-deleted tasks. Completion is idempotent; repeated complete requests do not increment version. Deletion sets deleted_at for execution-log referential integrity. Edits and deletion use expectedVersion to reject stale writes.",
+              "studyLogs": "Logs belong to tasks in the selected plan. Only logs for active tasks count in lists. Repeated creation with the same UUID is rejected. Edits and soft deletion use expectedVersion. Saved times are UTC and shown as Seoul time. Saving a log does not automatically complete its task.",
+              "review": "Planned = nondeleted task count; completed = current completed tasks; overdue = incomplete tasks with due date before today in Seoul; blocked = unique tasks with a nonempty blocker reason in an active log. Expected time = active task expected-minute sum; actual time = active log actual-minute sum; difference = actual minus expected. Metric buttons show their supporting tasks or logs. One versioned improvement per plan may target a later plan and appears on that plan's review.",
+              "data": "No auto-seeded study execution records. The user enters real sessions after studying.",
+              "export": "GET /api/export downloads one UTF-8 JSON attachment (format pds-study-diary, exportVersion 1). A single read-only D1 batch exports every row of all five tables, including plan history, soft-deleted rows and test records. tables uses literal database table and column names; tasks.tags remains a JSON TEXT string. Preserve UUIDs, versions, nulls, calendar dates, UTC timestamps and minutes without conversion. Metadata includes exportedAt, schemaVersion, timezone, timeUnit, includesDeleted and this schemaContract. Unsaved form drafts are excluded. An empty database exports five empty arrays. Failure returns HTTP 503 JSON without an attachment; the UI supports retry."
+            }
+          },
+          "tables": {
+            "plans": [
+              {
+                "id": "32fcb6a9-0fab-47d8-bf82-273177394fda",
+                "created_at": "2026-09-30T06:55:41.390Z"
+              },
+              {
+                "id": "ec975872-e96b-427a-8782-8a5c67caa9b3",
+                "created_at": "2026-09-30T06:55:41.362Z"
+              }
+            ],
+            "plan_versions": [
+              {
+                "plan_id": "32fcb6a9-0fab-47d8-bf82-273177394fda",
+                "version": 1,
+                "title": "[테스트] B 계획",
+                "start_date": "2026-10-03",
+                "end_date": "2026-10-05",
+                "priority": "normal",
+                "success_criteria": "검증 전용 자료",
+                "expected_minutes": 30,
+                "saved_at": "2026-09-30T06:55:41.390Z"
+              },
+              {
+                "plan_id": "ec975872-e96b-427a-8782-8a5c67caa9b3",
+                "version": 1,
+                "title": "[테스트] B 계획",
+                "start_date": "2026-09-30",
+                "end_date": "2026-10-02",
+                "priority": "normal",
+                "success_criteria": "검증 전용 자료",
+                "expected_minutes": 30,
+                "saved_at": "2026-09-30T06:55:41.362Z"
+              }
+            ],
+            "tasks": [
+              {
+                "id": "c488a0a2-5cd9-4394-a53b-95d6c2b825c0",
+                "plan_id": "ec975872-e96b-427a-8782-8a5c67caa9b3",
+                "title": "[테스트] B 할 일",
+                "due_date": null,
+                "priority": "normal",
+                "tags": "[\"테스트\"]",
+                "expected_minutes": 20,
+                "completed_at": null,
+                "deleted_at": null,
+                "created_at": "2026-09-30T06:55:41.423Z",
+                "updated_at": "2026-09-30T06:55:41.423Z",
+                "version": 1
+              }
+            ],
+            "study_logs": [
+              {
+                "id": "5d19ae12-e83c-491d-8f4a-812790d0f438",
+                "task_id": "c488a0a2-5cd9-4394-a53b-95d6c2b825c0",
+                "started_at": "2026-09-30T06:25:41.422Z",
+                "ended_at": "2026-09-30T06:45:41.422Z",
+                "actual_minutes": 10,
+                "studied_content": "[테스트] 인증 검증용 기록",
+                "blocker_reason": null,
+                "created_at": "2026-09-30T06:55:41.460Z",
+                "updated_at": "2026-09-30T06:55:41.460Z",
+                "deleted_at": null,
+                "version": 1
+              }
+            ],
+            "plan_reviews": [
+              {
+                "plan_id": "ec975872-e96b-427a-8782-8a5c67caa9b3",
+                "next_plan_id": "32fcb6a9-0fab-47d8-bf82-273177394fda",
+                "improvement": "[테스트] 다음 검증에서도 같은 지표 사용",
+                "created_at": "2026-09-30T06:55:41.492Z",
+                "updated_at": "2026-09-30T06:55:41.492Z",
+                "version": 1
+              }
+            ]
+          }
+        },
+        "sessionCookie": null
+      }
+    },
+    {
+      "label": "A → 다른 계정 요청 거절",
+      "request": {
+        "method": "GET",
+        "endpoint": "/api/plans?id=ec975872-e96b-427a-8782-8a5c67caa9b3",
+        "cookie": "[가림]",
+        "headers": {}
+      },
+      "response": {
+        "status": 404,
+        "body": {
+          "error": "자료를 찾을 수 없습니다."
+        },
+        "sessionCookie": null
+      }
+    },
+    {
+      "label": "A → 다른 계정 요청 거절",
+      "request": {
+        "method": "GET",
+        "endpoint": "/api/tasks?planId=ec975872-e96b-427a-8782-8a5c67caa9b3",
+        "cookie": "[가림]",
+        "headers": {}
+      },
+      "response": {
+        "status": 404,
+        "body": {
+          "error": "자료를 찾을 수 없습니다."
+        },
+        "sessionCookie": null
+      }
+    },
+    {
+      "label": "A → 다른 계정 요청 거절",
+      "request": {
+        "method": "GET",
+        "endpoint": "/api/study-logs?planId=ec975872-e96b-427a-8782-8a5c67caa9b3",
+        "cookie": "[가림]",
+        "headers": {}
+      },
+      "response": {
+        "status": 404,
+        "body": {
+          "error": "자료를 찾을 수 없습니다."
+        },
+        "sessionCookie": null
+      }
+    },
+    {
+      "label": "A → 다른 계정 요청 거절",
+      "request": {
+        "method": "GET",
+        "endpoint": "/api/reviews?planId=ec975872-e96b-427a-8782-8a5c67caa9b3",
+        "cookie": "[가림]",
+        "headers": {}
+      },
+      "response": {
+        "status": 404,
+        "body": {
+          "error": "자료를 찾을 수 없습니다."
+        },
+        "sessionCookie": null
+      }
+    },
+    {
+      "label": "A → 다른 계정 요청 거절",
+      "request": {
+        "method": "PATCH",
+        "endpoint": "/api/tasks",
+        "cookie": "[가림]",
+        "headers": {},
+        "body": {
+          "id": "c488a0a2-5cd9-4394-a53b-95d6c2b825c0",
+          "expectedVersion": 1,
+          "action": "edit",
+          "task": {
+            "title": "[테스트] 침범 시도 할 일",
+            "dueDate": null,
+            "priority": "normal",
+            "tags": [
+              "테스트"
+            ],
+            "expectedMinutes": 20
+          }
+        }
+      },
+      "response": {
+        "status": 404,
+        "body": {
+          "error": "자료를 찾을 수 없습니다."
+        },
+        "sessionCookie": null
+      }
+    },
+    {
+      "label": "A → 다른 계정 요청 거절",
+      "request": {
+        "method": "DELETE",
+        "endpoint": "/api/tasks",
+        "cookie": "[가림]",
+        "headers": {},
+        "body": {
+          "id": "c488a0a2-5cd9-4394-a53b-95d6c2b825c0",
+          "expectedVersion": 1
+        }
+      },
+      "response": {
+        "status": 404,
+        "body": {
+          "error": "자료를 찾을 수 없습니다."
+        },
+        "sessionCookie": null
+      }
+    },
+    {
+      "label": "A → 다른 계정 요청 거절",
+      "request": {
+        "method": "PATCH",
+        "endpoint": "/api/study-logs",
+        "cookie": "[가림]",
+        "headers": {},
+        "body": {
+          "id": "5d19ae12-e83c-491d-8f4a-812790d0f438",
+          "planId": "6147d19c-d06c-4fca-9b5c-463bc8bf4bfc",
+          "expectedVersion": 1,
+          "log": {
+            "taskId": "23cf6c1a-1aa5-400a-bb85-a7582b51419b",
+            "startedAt": "2026-09-30T06:25:41.288Z",
+            "endedAt": "2026-09-30T06:45:41.289Z",
+            "actualMinutes": 10,
+            "studiedContent": "[테스트] 인증 검증용 기록",
+            "blockerReason": null
+          }
+        }
+      },
+      "response": {
+        "status": 404,
+        "body": {
+          "error": "자료를 찾을 수 없습니다."
+        },
+        "sessionCookie": null
+      }
+    },
+    {
+      "label": "A → 다른 계정 요청 거절",
+      "request": {
+        "method": "DELETE",
+        "endpoint": "/api/study-logs",
+        "cookie": "[가림]",
+        "headers": {},
+        "body": {
+          "id": "5d19ae12-e83c-491d-8f4a-812790d0f438",
+          "planId": "6147d19c-d06c-4fca-9b5c-463bc8bf4bfc",
+          "expectedVersion": 1
+        }
+      },
+      "response": {
+        "status": 404,
+        "body": {
+          "error": "자료를 찾을 수 없습니다."
+        },
+        "sessionCookie": null
+      }
+    },
+    {
+      "label": "A → 다른 계정 요청 거절",
+      "request": {
+        "method": "POST",
+        "endpoint": "/api/plans",
+        "cookie": "[가림]",
+        "headers": {},
+        "body": {
+          "id": "ec975872-e96b-427a-8782-8a5c67caa9b3",
+          "expectedVersion": 1,
+          "plan": {
+            "title": "[테스트] 침범 시도 계획",
+            "startDate": "2026-09-30",
+            "endDate": "2026-10-02",
+            "priority": "normal",
+            "successCriteria": "검증 전용 자료",
+            "expectedMinutes": 30
+          }
+        }
+      },
+      "response": {
+        "status": 404,
+        "body": {
+          "error": "자료를 찾을 수 없습니다."
+        },
+        "sessionCookie": null
+      }
+    },
+    {
+      "label": "A → 다른 계정 요청 거절",
+      "request": {
+        "method": "POST",
+        "endpoint": "/api/tasks",
+        "cookie": "[가림]",
+        "headers": {},
+        "body": {
+          "id": "12b8d48e-f044-405f-abf3-572ea2c9d4e4",
+          "planId": "ec975872-e96b-427a-8782-8a5c67caa9b3",
+          "task": {
+            "title": "[테스트] 침범 시도 할 일",
+            "dueDate": null,
+            "priority": "normal",
+            "tags": [
+              "테스트"
+            ],
+            "expectedMinutes": 20
+          }
+        }
+      },
+      "response": {
+        "status": 404,
+        "body": {
+          "error": "자료를 찾을 수 없습니다."
+        },
+        "sessionCookie": null
+      }
+    },
+    {
+      "label": "A → 다른 계정 요청 거절",
+      "request": {
+        "method": "POST",
+        "endpoint": "/api/study-logs",
+        "cookie": "[가림]",
+        "headers": {},
+        "body": {
+          "id": "6f455b92-0a11-427e-8d28-082b99d680b8",
+          "planId": "6147d19c-d06c-4fca-9b5c-463bc8bf4bfc",
+          "log": {
+            "taskId": "c488a0a2-5cd9-4394-a53b-95d6c2b825c0",
+            "startedAt": "2026-09-30T06:25:41.288Z",
+            "endedAt": "2026-09-30T06:45:41.289Z",
+            "actualMinutes": 10,
+            "studiedContent": "[테스트] 인증 검증용 기록",
+            "blockerReason": null
+          }
+        }
+      },
+      "response": {
+        "status": 404,
+        "body": {
+          "error": "자료를 찾을 수 없습니다."
+        },
+        "sessionCookie": null
+      }
+    },
+    {
+      "label": "A → 다른 계정 요청 거절",
+      "request": {
+        "method": "POST",
+        "endpoint": "/api/reviews",
+        "cookie": "[가림]",
+        "headers": {},
+        "body": {
+          "planId": "6147d19c-d06c-4fca-9b5c-463bc8bf4bfc",
+          "expectedVersion": 1,
+          "review": {
+            "nextPlanId": "32fcb6a9-0fab-47d8-bf82-273177394fda",
+            "improvement": "[테스트] 침범 시도"
+          }
+        }
+      },
+      "response": {
+        "status": 404,
+        "body": {
+          "error": "자료를 찾을 수 없습니다."
+        },
+        "sessionCookie": null
+      }
+    },
+    {
+      "label": "A URL·헤더의 남의 계정 무시",
+      "request": {
+        "method": "GET",
+        "endpoint": "/api/plans?userId=c116b393-60b4-478e-8cc3-aa37085980ed",
+        "cookie": "[가림]",
+        "headers": {
+          "X-User-Id": "c116b393-60b4-478e-8cc3-aa37085980ed",
+          "oai-authenticated-user-id": "c116b393-60b4-478e-8cc3-aa37085980ed"
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "plans": [
+            {
+              "id": "60637ebb-3852-4ce6-bdd1-f854bca19c96",
+              "version": 1,
+              "title": "[테스트] A 계획",
+              "startDate": "2026-10-03",
+              "endDate": "2026-10-05",
+              "priority": "normal",
+              "successCriteria": "검증 전용 자료",
+              "expectedMinutes": 30,
+              "savedAt": "2026-09-30T06:55:41.256Z"
+            },
+            {
+              "id": "6147d19c-d06c-4fca-9b5c-463bc8bf4bfc",
+              "version": 1,
+              "title": "[테스트] A 계획",
+              "startDate": "2026-09-30",
+              "endDate": "2026-10-02",
+              "priority": "normal",
+              "successCriteria": "검증 전용 자료",
+              "expectedMinutes": 30,
+              "savedAt": "2026-09-30T06:55:41.224Z"
+            }
+          ]
+        },
+        "sessionCookie": null
+      }
+    },
+    {
+      "label": "B → 다른 계정 요청 거절",
+      "request": {
+        "method": "GET",
+        "endpoint": "/api/plans?id=6147d19c-d06c-4fca-9b5c-463bc8bf4bfc",
+        "cookie": "[가림]",
+        "headers": {}
+      },
+      "response": {
+        "status": 404,
+        "body": {
+          "error": "자료를 찾을 수 없습니다."
+        },
+        "sessionCookie": null
+      }
+    },
+    {
+      "label": "B → 다른 계정 요청 거절",
+      "request": {
+        "method": "GET",
+        "endpoint": "/api/tasks?planId=6147d19c-d06c-4fca-9b5c-463bc8bf4bfc",
+        "cookie": "[가림]",
+        "headers": {}
+      },
+      "response": {
+        "status": 404,
+        "body": {
+          "error": "자료를 찾을 수 없습니다."
+        },
+        "sessionCookie": null
+      }
+    },
+    {
+      "label": "B → 다른 계정 요청 거절",
+      "request": {
+        "method": "GET",
+        "endpoint": "/api/study-logs?planId=6147d19c-d06c-4fca-9b5c-463bc8bf4bfc",
+        "cookie": "[가림]",
+        "headers": {}
+      },
+      "response": {
+        "status": 404,
+        "body": {
+          "error": "자료를 찾을 수 없습니다."
+        },
+        "sessionCookie": null
+      }
+    },
+    {
+      "label": "B → 다른 계정 요청 거절",
+      "request": {
+        "method": "GET",
+        "endpoint": "/api/reviews?planId=6147d19c-d06c-4fca-9b5c-463bc8bf4bfc",
+        "cookie": "[가림]",
+        "headers": {}
+      },
+      "response": {
+        "status": 404,
+        "body": {
+          "error": "자료를 찾을 수 없습니다."
+        },
+        "sessionCookie": null
+      }
+    },
+    {
+      "label": "B → 다른 계정 요청 거절",
+      "request": {
+        "method": "PATCH",
+        "endpoint": "/api/tasks",
+        "cookie": "[가림]",
+        "headers": {},
+        "body": {
+          "id": "23cf6c1a-1aa5-400a-bb85-a7582b51419b",
+          "expectedVersion": 1,
+          "action": "edit",
+          "task": {
+            "title": "[테스트] 침범 시도 할 일",
+            "dueDate": null,
+            "priority": "normal",
+            "tags": [
+              "테스트"
+            ],
+            "expectedMinutes": 20
+          }
+        }
+      },
+      "response": {
+        "status": 404,
+        "body": {
+          "error": "자료를 찾을 수 없습니다."
+        },
+        "sessionCookie": null
+      }
+    },
+    {
+      "label": "B → 다른 계정 요청 거절",
+      "request": {
+        "method": "DELETE",
+        "endpoint": "/api/tasks",
+        "cookie": "[가림]",
+        "headers": {},
+        "body": {
+          "id": "23cf6c1a-1aa5-400a-bb85-a7582b51419b",
+          "expectedVersion": 1
+        }
+      },
+      "response": {
+        "status": 404,
+        "body": {
+          "error": "자료를 찾을 수 없습니다."
+        },
+        "sessionCookie": null
+      }
+    },
+    {
+      "label": "B → 다른 계정 요청 거절",
+      "request": {
+        "method": "PATCH",
+        "endpoint": "/api/study-logs",
+        "cookie": "[가림]",
+        "headers": {},
+        "body": {
+          "id": "265ad5c3-edf7-4a40-8be0-6a08825282fb",
+          "planId": "ec975872-e96b-427a-8782-8a5c67caa9b3",
+          "expectedVersion": 1,
+          "log": {
+            "taskId": "c488a0a2-5cd9-4394-a53b-95d6c2b825c0",
+            "startedAt": "2026-09-30T06:25:41.422Z",
+            "endedAt": "2026-09-30T06:45:41.422Z",
+            "actualMinutes": 10,
+            "studiedContent": "[테스트] 인증 검증용 기록",
+            "blockerReason": null
+          }
+        }
+      },
+      "response": {
+        "status": 404,
+        "body": {
+          "error": "자료를 찾을 수 없습니다."
+        },
+        "sessionCookie": null
+      }
+    },
+    {
+      "label": "B → 다른 계정 요청 거절",
+      "request": {
+        "method": "DELETE",
+        "endpoint": "/api/study-logs",
+        "cookie": "[가림]",
+        "headers": {},
+        "body": {
+          "id": "265ad5c3-edf7-4a40-8be0-6a08825282fb",
+          "planId": "ec975872-e96b-427a-8782-8a5c67caa9b3",
+          "expectedVersion": 1
+        }
+      },
+      "response": {
+        "status": 404,
+        "body": {
+          "error": "자료를 찾을 수 없습니다."
+        },
+        "sessionCookie": null
+      }
+    },
+    {
+      "label": "B → 다른 계정 요청 거절",
+      "request": {
+        "method": "POST",
+        "endpoint": "/api/plans",
+        "cookie": "[가림]",
+        "headers": {},
+        "body": {
+          "id": "6147d19c-d06c-4fca-9b5c-463bc8bf4bfc",
+          "expectedVersion": 1,
+          "plan": {
+            "title": "[테스트] 침범 시도 계획",
+            "startDate": "2026-09-30",
+            "endDate": "2026-10-02",
+            "priority": "normal",
+            "successCriteria": "검증 전용 자료",
+            "expectedMinutes": 30
+          }
+        }
+      },
+      "response": {
+        "status": 404,
+        "body": {
+          "error": "자료를 찾을 수 없습니다."
+        },
+        "sessionCookie": null
+      }
+    },
+    {
+      "label": "B → 다른 계정 요청 거절",
+      "request": {
+        "method": "POST",
+        "endpoint": "/api/tasks",
+        "cookie": "[가림]",
+        "headers": {},
+        "body": {
+          "id": "62282258-8bff-4c3c-9fcc-c96a6ceefeae",
+          "planId": "6147d19c-d06c-4fca-9b5c-463bc8bf4bfc",
+          "task": {
+            "title": "[테스트] 침범 시도 할 일",
+            "dueDate": null,
+            "priority": "normal",
+            "tags": [
+              "테스트"
+            ],
+            "expectedMinutes": 20
+          }
+        }
+      },
+      "response": {
+        "status": 404,
+        "body": {
+          "error": "자료를 찾을 수 없습니다."
+        },
+        "sessionCookie": null
+      }
+    },
+    {
+      "label": "B → 다른 계정 요청 거절",
+      "request": {
+        "method": "POST",
+        "endpoint": "/api/study-logs",
+        "cookie": "[가림]",
+        "headers": {},
+        "body": {
+          "id": "fe5ee529-99d5-48e0-859b-e78e9b4419e1",
+          "planId": "ec975872-e96b-427a-8782-8a5c67caa9b3",
+          "log": {
+            "taskId": "23cf6c1a-1aa5-400a-bb85-a7582b51419b",
+            "startedAt": "2026-09-30T06:25:41.422Z",
+            "endedAt": "2026-09-30T06:45:41.422Z",
+            "actualMinutes": 10,
+            "studiedContent": "[테스트] 인증 검증용 기록",
+            "blockerReason": null
+          }
+        }
+      },
+      "response": {
+        "status": 404,
+        "body": {
+          "error": "자료를 찾을 수 없습니다."
+        },
+        "sessionCookie": null
+      }
+    },
+    {
+      "label": "B → 다른 계정 요청 거절",
+      "request": {
+        "method": "POST",
+        "endpoint": "/api/reviews",
+        "cookie": "[가림]",
+        "headers": {},
+        "body": {
+          "planId": "ec975872-e96b-427a-8782-8a5c67caa9b3",
+          "expectedVersion": 1,
+          "review": {
+            "nextPlanId": "60637ebb-3852-4ce6-bdd1-f854bca19c96",
+            "improvement": "[테스트] 침범 시도"
+          }
+        }
+      },
+      "response": {
+        "status": 404,
+        "body": {
+          "error": "자료를 찾을 수 없습니다."
+        },
+        "sessionCookie": null
+      }
+    },
+    {
+      "label": "B URL·헤더의 남의 계정 무시",
+      "request": {
+        "method": "GET",
+        "endpoint": "/api/plans?userId=8d3afd27-9cd1-419f-8ff6-740f70d2c591",
+        "cookie": "[가림]",
+        "headers": {
+          "X-User-Id": "8d3afd27-9cd1-419f-8ff6-740f70d2c591",
+          "oai-authenticated-user-id": "8d3afd27-9cd1-419f-8ff6-740f70d2c591"
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "plans": [
+            {
+              "id": "32fcb6a9-0fab-47d8-bf82-273177394fda",
+              "version": 1,
+              "title": "[테스트] B 계획",
+              "startDate": "2026-10-03",
+              "endDate": "2026-10-05",
+              "priority": "normal",
+              "successCriteria": "검증 전용 자료",
+              "expectedMinutes": 30,
+              "savedAt": "2026-09-30T06:55:41.390Z"
+            },
+            {
+              "id": "ec975872-e96b-427a-8782-8a5c67caa9b3",
+              "version": 1,
+              "title": "[테스트] B 계획",
+              "startDate": "2026-09-30",
+              "endDate": "2026-10-02",
+              "priority": "normal",
+              "successCriteria": "검증 전용 자료",
+              "expectedMinutes": 30,
+              "savedAt": "2026-09-30T06:55:41.362Z"
+            }
+          ]
+        },
+        "sessionCookie": null
+      }
+    },
+    {
+      "label": "침범 거절 후 A 자료 대조",
+      "request": {
+        "method": "GET",
+        "endpoint": "/api/export",
+        "cookie": "[가림]",
+        "headers": {}
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "format": "pds-study-diary",
+          "exportVersion": 1,
+          "schemaVersion": 2,
+          "exportedAt": "2026-09-30T06:55:42.239Z",
+          "timezone": "Asia/Seoul",
+          "timeUnit": "minutes",
+          "includesDeleted": true,
+          "schemaContract": {
+            "schemaVersion": 2,
+            "stage": "T06 cards 1–5 — plans, tasks, study logs, reviews and full JSON export",
+            "status": "implemented; real study records, final verification and submission are pending",
+            "timezone": "Asia/Seoul",
+            "tables": {
+              "plans": {
+                "primaryKey": [
+                  "id"
+                ],
+                "columns": {
+                  "id": "UUID v4 TEXT",
+                  "created_at": "UTC ISO 8601 TEXT"
+                }
+              },
+              "plan_versions": {
+                "primaryKey": [
+                  "plan_id",
+                  "version"
+                ],
+                "foreignKeys": [
+                  {
+                    "column": "plan_id",
+                    "references": "plans.id"
+                  }
+                ],
+                "columns": {
+                  "plan_id": "UUID v4 TEXT",
+                  "version": "positive INTEGER",
+                  "title": "TEXT 1..120 chars",
+                  "start_date": "YYYY-MM-DD TEXT",
+                  "end_date": "YYYY-MM-DD TEXT >= start_date",
+                  "priority": "high | normal | low",
+                  "success_criteria": "TEXT 1..2000 chars",
+                  "expected_minutes": "INTEGER 1..100000",
+                  "saved_at": "UTC ISO 8601 TEXT"
+                }
+              },
+              "tasks": {
+                "primaryKey": [
+                  "id"
+                ],
+                "foreignKeys": [
+                  {
+                    "column": "plan_id",
+                    "references": "plans.id"
+                  }
+                ],
+                "columns": {
+                  "id": "UUID v4 TEXT",
+                  "plan_id": "UUID v4 TEXT",
+                  "title": "TEXT 1..120 chars",
+                  "due_date": "nullable YYYY-MM-DD TEXT",
+                  "priority": "high | normal | low",
+                  "tags": "JSON TEXT array of up to 8 unique tags, each 1..24 chars",
+                  "expected_minutes": "INTEGER 1..100000",
+                  "completed_at": "nullable UTC ISO 8601 TEXT",
+                  "deleted_at": "nullable UTC ISO 8601 TEXT",
+                  "created_at": "UTC ISO 8601 TEXT",
+                  "updated_at": "UTC ISO 8601 TEXT",
+                  "version": "positive INTEGER"
+                }
+              },
+              "study_logs": {
+                "primaryKey": [
+                  "id"
+                ],
+                "foreignKeys": [
+                  {
+                    "column": "task_id",
+                    "references": "tasks.id"
+                  }
+                ],
+                "columns": {
+                  "id": "UUID v4 TEXT",
+                  "task_id": "UUID v4 TEXT",
+                  "started_at": "UTC ISO 8601 TEXT",
+                  "ended_at": "UTC ISO 8601 TEXT > started_at",
+                  "actual_minutes": "INTEGER 1..100000 <= elapsed minutes",
+                  "studied_content": "TEXT 1..2000 chars",
+                  "blocker_reason": "nullable TEXT 1..1000 chars",
+                  "created_at": "UTC ISO 8601 TEXT",
+                  "updated_at": "UTC ISO 8601 TEXT",
+                  "deleted_at": "nullable UTC ISO 8601 TEXT",
+                  "version": "positive INTEGER"
+                }
+              },
+              "plan_reviews": {
+                "primaryKey": [
+                  "plan_id"
+                ],
+                "foreignKeys": [
+                  {
+                    "column": "plan_id",
+                    "references": "plans.id"
+                  },
+                  {
+                    "column": "next_plan_id",
+                    "references": "plans.id"
+                  }
+                ],
+                "columns": {
+                  "plan_id": "UUID v4 TEXT",
+                  "next_plan_id": "UUID v4 TEXT != plan_id; next plan begins on or after source plan ends",
+                  "improvement": "TEXT 1..1000 chars; one improvement per source plan",
+                  "created_at": "UTC ISO 8601 TEXT",
+                  "updated_at": "UTC ISO 8601 TEXT",
+                  "version": "positive INTEGER"
+                }
+              }
+            },
+            "rules": {
+              "dates": "Calendar dates are stored literally without UTC conversion; years 2000..2100. Display timestamps in Asia/Seoul.",
+              "timeUnit": "minutes",
+              "expectedTime": "Total for this plan period, not per-session duration. Initial unsaved draft proposes 120 minutes.",
+              "history": "Append-only versions. Version 1 preserves the original. Latest version is current; update uses expectedVersion to reject stale writes.",
+              "atomicity": "Plan creation and first revision use a D1 transaction batch. Revision insert uses a conditional SELECT and composite primary key.",
+              "tasks": "Tasks belong to plans. Searches, filters and sorting use non-deleted tasks. Completion is idempotent; repeated complete requests do not increment version. Deletion sets deleted_at for execution-log referential integrity. Edits and deletion use expectedVersion to reject stale writes.",
+              "studyLogs": "Logs belong to tasks in the selected plan. Only logs for active tasks count in lists. Repeated creation with the same UUID is rejected. Edits and soft deletion use expectedVersion. Saved times are UTC and shown as Seoul time. Saving a log does not automatically complete its task.",
+              "review": "Planned = nondeleted task count; completed = current completed tasks; overdue = incomplete tasks with due date before today in Seoul; blocked = unique tasks with a nonempty blocker reason in an active log. Expected time = active task expected-minute sum; actual time = active log actual-minute sum; difference = actual minus expected. Metric buttons show their supporting tasks or logs. One versioned improvement per plan may target a later plan and appears on that plan's review.",
+              "data": "No auto-seeded study execution records. The user enters real sessions after studying.",
+              "export": "GET /api/export downloads one UTF-8 JSON attachment (format pds-study-diary, exportVersion 1). A single read-only D1 batch exports every row of all five tables, including plan history, soft-deleted rows and test records. tables uses literal database table and column names; tasks.tags remains a JSON TEXT string. Preserve UUIDs, versions, nulls, calendar dates, UTC timestamps and minutes without conversion. Metadata includes exportedAt, schemaVersion, timezone, timeUnit, includesDeleted and this schemaContract. Unsaved form drafts are excluded. An empty database exports five empty arrays. Failure returns HTTP 503 JSON without an attachment; the UI supports retry."
+            }
+          },
+          "tables": {
+            "plans": [
+              {
+                "id": "60637ebb-3852-4ce6-bdd1-f854bca19c96",
+                "created_at": "2026-09-30T06:55:41.256Z"
+              },
+              {
+                "id": "6147d19c-d06c-4fca-9b5c-463bc8bf4bfc",
+                "created_at": "2026-09-30T06:55:41.224Z"
+              }
+            ],
+            "plan_versions": [
+              {
+                "plan_id": "60637ebb-3852-4ce6-bdd1-f854bca19c96",
+                "version": 1,
+                "title": "[테스트] A 계획",
+                "start_date": "2026-10-03",
+                "end_date": "2026-10-05",
+                "priority": "normal",
+                "success_criteria": "검증 전용 자료",
+                "expected_minutes": 30,
+                "saved_at": "2026-09-30T06:55:41.256Z"
+              },
+              {
+                "plan_id": "6147d19c-d06c-4fca-9b5c-463bc8bf4bfc",
+                "version": 1,
+                "title": "[테스트] A 계획",
+                "start_date": "2026-09-30",
+                "end_date": "2026-10-02",
+                "priority": "normal",
+                "success_criteria": "검증 전용 자료",
+                "expected_minutes": 30,
+                "saved_at": "2026-09-30T06:55:41.224Z"
+              }
+            ],
+            "tasks": [
+              {
+                "id": "23cf6c1a-1aa5-400a-bb85-a7582b51419b",
+                "plan_id": "6147d19c-d06c-4fca-9b5c-463bc8bf4bfc",
+                "title": "[테스트] A 할 일",
+                "due_date": null,
+                "priority": "normal",
+                "tags": "[\"테스트\"]",
+                "expected_minutes": 20,
+                "completed_at": null,
+                "deleted_at": null,
+                "created_at": "2026-09-30T06:55:41.289Z",
+                "updated_at": "2026-09-30T06:55:41.289Z",
+                "version": 1
+              }
+            ],
+            "study_logs": [
+              {
+                "id": "265ad5c3-edf7-4a40-8be0-6a08825282fb",
+                "task_id": "23cf6c1a-1aa5-400a-bb85-a7582b51419b",
+                "started_at": "2026-09-30T06:25:41.288Z",
+                "ended_at": "2026-09-30T06:45:41.289Z",
+                "actual_minutes": 10,
+                "studied_content": "[테스트] 인증 검증용 기록",
+                "blocker_reason": null,
+                "created_at": "2026-09-30T06:55:41.311Z",
+                "updated_at": "2026-09-30T06:55:41.311Z",
+                "deleted_at": null,
+                "version": 1
+              }
+            ],
+            "plan_reviews": [
+              {
+                "plan_id": "6147d19c-d06c-4fca-9b5c-463bc8bf4bfc",
+                "next_plan_id": "60637ebb-3852-4ce6-bdd1-f854bca19c96",
+                "improvement": "[테스트] 다음 검증에서도 같은 지표 사용",
+                "created_at": "2026-09-30T06:55:41.341Z",
+                "updated_at": "2026-09-30T06:55:41.341Z",
+                "version": 1
+              }
+            ]
+          }
+        },
+        "sessionCookie": null
+      }
+    },
+    {
+      "label": "침범 거절 후 B 자료 대조",
+      "request": {
+        "method": "GET",
+        "endpoint": "/api/export",
+        "cookie": "[가림]",
+        "headers": {}
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "format": "pds-study-diary",
+          "exportVersion": 1,
+          "schemaVersion": 2,
+          "exportedAt": "2026-09-30T06:55:42.274Z",
+          "timezone": "Asia/Seoul",
+          "timeUnit": "minutes",
+          "includesDeleted": true,
+          "schemaContract": {
+            "schemaVersion": 2,
+            "stage": "T06 cards 1–5 — plans, tasks, study logs, reviews and full JSON export",
+            "status": "implemented; real study records, final verification and submission are pending",
+            "timezone": "Asia/Seoul",
+            "tables": {
+              "plans": {
+                "primaryKey": [
+                  "id"
+                ],
+                "columns": {
+                  "id": "UUID v4 TEXT",
+                  "created_at": "UTC ISO 8601 TEXT"
+                }
+              },
+              "plan_versions": {
+                "primaryKey": [
+                  "plan_id",
+                  "version"
+                ],
+                "foreignKeys": [
+                  {
+                    "column": "plan_id",
+                    "references": "plans.id"
+                  }
+                ],
+                "columns": {
+                  "plan_id": "UUID v4 TEXT",
+                  "version": "positive INTEGER",
+                  "title": "TEXT 1..120 chars",
+                  "start_date": "YYYY-MM-DD TEXT",
+                  "end_date": "YYYY-MM-DD TEXT >= start_date",
+                  "priority": "high | normal | low",
+                  "success_criteria": "TEXT 1..2000 chars",
+                  "expected_minutes": "INTEGER 1..100000",
+                  "saved_at": "UTC ISO 8601 TEXT"
+                }
+              },
+              "tasks": {
+                "primaryKey": [
+                  "id"
+                ],
+                "foreignKeys": [
+                  {
+                    "column": "plan_id",
+                    "references": "plans.id"
+                  }
+                ],
+                "columns": {
+                  "id": "UUID v4 TEXT",
+                  "plan_id": "UUID v4 TEXT",
+                  "title": "TEXT 1..120 chars",
+                  "due_date": "nullable YYYY-MM-DD TEXT",
+                  "priority": "high | normal | low",
+                  "tags": "JSON TEXT array of up to 8 unique tags, each 1..24 chars",
+                  "expected_minutes": "INTEGER 1..100000",
+                  "completed_at": "nullable UTC ISO 8601 TEXT",
+                  "deleted_at": "nullable UTC ISO 8601 TEXT",
+                  "created_at": "UTC ISO 8601 TEXT",
+                  "updated_at": "UTC ISO 8601 TEXT",
+                  "version": "positive INTEGER"
+                }
+              },
+              "study_logs": {
+                "primaryKey": [
+                  "id"
+                ],
+                "foreignKeys": [
+                  {
+                    "column": "task_id",
+                    "references": "tasks.id"
+                  }
+                ],
+                "columns": {
+                  "id": "UUID v4 TEXT",
+                  "task_id": "UUID v4 TEXT",
+                  "started_at": "UTC ISO 8601 TEXT",
+                  "ended_at": "UTC ISO 8601 TEXT > started_at",
+                  "actual_minutes": "INTEGER 1..100000 <= elapsed minutes",
+                  "studied_content": "TEXT 1..2000 chars",
+                  "blocker_reason": "nullable TEXT 1..1000 chars",
+                  "created_at": "UTC ISO 8601 TEXT",
+                  "updated_at": "UTC ISO 8601 TEXT",
+                  "deleted_at": "nullable UTC ISO 8601 TEXT",
+                  "version": "positive INTEGER"
+                }
+              },
+              "plan_reviews": {
+                "primaryKey": [
+                  "plan_id"
+                ],
+                "foreignKeys": [
+                  {
+                    "column": "plan_id",
+                    "references": "plans.id"
+                  },
+                  {
+                    "column": "next_plan_id",
+                    "references": "plans.id"
+                  }
+                ],
+                "columns": {
+                  "plan_id": "UUID v4 TEXT",
+                  "next_plan_id": "UUID v4 TEXT != plan_id; next plan begins on or after source plan ends",
+                  "improvement": "TEXT 1..1000 chars; one improvement per source plan",
+                  "created_at": "UTC ISO 8601 TEXT",
+                  "updated_at": "UTC ISO 8601 TEXT",
+                  "version": "positive INTEGER"
+                }
+              }
+            },
+            "rules": {
+              "dates": "Calendar dates are stored literally without UTC conversion; years 2000..2100. Display timestamps in Asia/Seoul.",
+              "timeUnit": "minutes",
+              "expectedTime": "Total for this plan period, not per-session duration. Initial unsaved draft proposes 120 minutes.",
+              "history": "Append-only versions. Version 1 preserves the original. Latest version is current; update uses expectedVersion to reject stale writes.",
+              "atomicity": "Plan creation and first revision use a D1 transaction batch. Revision insert uses a conditional SELECT and composite primary key.",
+              "tasks": "Tasks belong to plans. Searches, filters and sorting use non-deleted tasks. Completion is idempotent; repeated complete requests do not increment version. Deletion sets deleted_at for execution-log referential integrity. Edits and deletion use expectedVersion to reject stale writes.",
+              "studyLogs": "Logs belong to tasks in the selected plan. Only logs for active tasks count in lists. Repeated creation with the same UUID is rejected. Edits and soft deletion use expectedVersion. Saved times are UTC and shown as Seoul time. Saving a log does not automatically complete its task.",
+              "review": "Planned = nondeleted task count; completed = current completed tasks; overdue = incomplete tasks with due date before today in Seoul; blocked = unique tasks with a nonempty blocker reason in an active log. Expected time = active task expected-minute sum; actual time = active log actual-minute sum; difference = actual minus expected. Metric buttons show their supporting tasks or logs. One versioned improvement per plan may target a later plan and appears on that plan's review.",
+              "data": "No auto-seeded study execution records. The user enters real sessions after studying.",
+              "export": "GET /api/export downloads one UTF-8 JSON attachment (format pds-study-diary, exportVersion 1). A single read-only D1 batch exports every row of all five tables, including plan history, soft-deleted rows and test records. tables uses literal database table and column names; tasks.tags remains a JSON TEXT string. Preserve UUIDs, versions, nulls, calendar dates, UTC timestamps and minutes without conversion. Metadata includes exportedAt, schemaVersion, timezone, timeUnit, includesDeleted and this schemaContract. Unsaved form drafts are excluded. An empty database exports five empty arrays. Failure returns HTTP 503 JSON without an attachment; the UI supports retry."
+            }
+          },
+          "tables": {
+            "plans": [
+              {
+                "id": "32fcb6a9-0fab-47d8-bf82-273177394fda",
+                "created_at": "2026-09-30T06:55:41.390Z"
+              },
+              {
+                "id": "ec975872-e96b-427a-8782-8a5c67caa9b3",
+                "created_at": "2026-09-30T06:55:41.362Z"
+              }
+            ],
+            "plan_versions": [
+              {
+                "plan_id": "32fcb6a9-0fab-47d8-bf82-273177394fda",
+                "version": 1,
+                "title": "[테스트] B 계획",
+                "start_date": "2026-10-03",
+                "end_date": "2026-10-05",
+                "priority": "normal",
+                "success_criteria": "검증 전용 자료",
+                "expected_minutes": 30,
+                "saved_at": "2026-09-30T06:55:41.390Z"
+              },
+              {
+                "plan_id": "ec975872-e96b-427a-8782-8a5c67caa9b3",
+                "version": 1,
+                "title": "[테스트] B 계획",
+                "start_date": "2026-09-30",
+                "end_date": "2026-10-02",
+                "priority": "normal",
+                "success_criteria": "검증 전용 자료",
+                "expected_minutes": 30,
+                "saved_at": "2026-09-30T06:55:41.362Z"
+              }
+            ],
+            "tasks": [
+              {
+                "id": "c488a0a2-5cd9-4394-a53b-95d6c2b825c0",
+                "plan_id": "ec975872-e96b-427a-8782-8a5c67caa9b3",
+                "title": "[테스트] B 할 일",
+                "due_date": null,
+                "priority": "normal",
+                "tags": "[\"테스트\"]",
+                "expected_minutes": 20,
+                "completed_at": null,
+                "deleted_at": null,
+                "created_at": "2026-09-30T06:55:41.423Z",
+                "updated_at": "2026-09-30T06:55:41.423Z",
+                "version": 1
+              }
+            ],
+            "study_logs": [
+              {
+                "id": "5d19ae12-e83c-491d-8f4a-812790d0f438",
+                "task_id": "c488a0a2-5cd9-4394-a53b-95d6c2b825c0",
+                "started_at": "2026-09-30T06:25:41.422Z",
+                "ended_at": "2026-09-30T06:45:41.422Z",
+                "actual_minutes": 10,
+                "studied_content": "[테스트] 인증 검증용 기록",
+                "blocker_reason": null,
+                "created_at": "2026-09-30T06:55:41.460Z",
+                "updated_at": "2026-09-30T06:55:41.460Z",
+                "deleted_at": null,
+                "version": 1
+              }
+            ],
+            "plan_reviews": [
+              {
+                "plan_id": "ec975872-e96b-427a-8782-8a5c67caa9b3",
+                "next_plan_id": "32fcb6a9-0fab-47d8-bf82-273177394fda",
+                "improvement": "[테스트] 다음 검증에서도 같은 지표 사용",
+                "created_at": "2026-09-30T06:55:41.492Z",
+                "updated_at": "2026-09-30T06:55:41.492Z",
+                "version": 1
+              }
+            ]
+          }
+        },
+        "sessionCookie": null
+      }
+    },
+    {
+      "label": "양방향 거절 전후 건수·내용 일치",
+      "unchanged": true,
+      "counts": {
+        "A": {
+          "plans": 2,
+          "plan_versions": 2,
+          "tasks": 1,
+          "study_logs": 1,
+          "plan_reviews": 1
+        },
+        "B": {
+          "plans": 2,
+          "plan_versions": 2,
+          "tasks": 1,
+          "study_logs": 1,
+          "plan_reviews": 1
+        }
+      }
+    },
+    {
+      "label": "본문의 남의 계정 무시",
+      "request": {
+        "method": "POST",
+        "endpoint": "/api/plans",
+        "cookie": "[가림]",
+        "headers": {},
+        "body": {
+          "id": "65c6c732-493e-4cbe-9ff9-5dde4715a4b8",
+          "expectedVersion": 0,
+          "userId": "c116b393-60b4-478e-8cc3-aa37085980ed",
+          "ownerId": "c116b393-60b4-478e-8cc3-aa37085980ed",
+          "plan": {
+            "title": "[테스트] A의 자료 계획",
+            "startDate": "2026-09-30",
+            "endDate": "2026-10-02",
+            "priority": "normal",
+            "successCriteria": "검증 전용 자료",
+            "expectedMinutes": 30
+          }
+        }
+      },
+      "response": {
+        "status": 201,
+        "body": {
+          "plan": {
+            "title": "[테스트] A의 자료 계획",
+            "startDate": "2026-09-30",
+            "endDate": "2026-10-02",
+            "priority": "normal",
+            "successCriteria": "검증 전용 자료",
+            "expectedMinutes": 30,
+            "id": "65c6c732-493e-4cbe-9ff9-5dde4715a4b8",
+            "version": 1,
+            "savedAt": "2026-09-30T06:55:42.294Z"
+          }
+        },
+        "sessionCookie": null
+      }
+    },
+    {
+      "label": "인증 요청 제한과 Retry-After 준수",
+      "response": {
+        "status": 429
+      },
+      "retryAfterSeconds": 9
+    },
+    {
+      "label": "로그인 B",
+      "request": {
+        "method": "POST",
+        "endpoint": "/api/auth/sign-in/email",
+        "cookie": null,
+        "headers": {},
+        "body": {
+          "email": "t07-check-dd1fd705-0d30-428b-9ff4-e3d90573fc4b-B@example.invalid",
+          "password": "[가림]"
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "redirect": false,
+          "user": {
+            "name": "[테스트] B",
+            "email": "t07-check-dd1fd705-0d30-428b-9ff4-e3d90573fc4b-b@example.invalid",
+            "emailVerified": false,
+            "image": null,
+            "createdAt": "2026-09-30T06:55:40.871Z",
+            "updatedAt": "2026-09-30T06:55:40.871Z",
+            "id": "c116b393-60b4-478e-8cc3-aa37085980ed"
+          }
+        },
+        "sessionCookie": "[가림]"
+      }
+    },
+    {
+      "label": "비밀번호 변경",
+      "request": {
+        "method": "POST",
+        "endpoint": "/api/auth/change-password",
+        "cookie": "[가림]",
+        "headers": {},
+        "body": {
+          "currentPassword": "[가림]",
+          "newPassword": "[가림]"
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "success": true
+        },
+        "sessionCookie": "[가림]"
+      }
+    },
+    {
+      "label": "비밀번호 변경 후 이전 세션 거절",
+      "request": {
+        "method": "GET",
+        "endpoint": "/api/plans",
+        "cookie": "[가림]",
+        "headers": {}
+      },
+      "response": {
+        "status": 401,
+        "body": {
+          "error": "로그인이 필요합니다."
+        },
+        "sessionCookie": null
+      }
+    },
+    {
+      "label": "비밀번호 변경 후 이전 세션 거절",
+      "request": {
+        "method": "GET",
+        "endpoint": "/api/plans",
+        "cookie": "[가림]",
+        "headers": {}
+      },
+      "response": {
+        "status": 401,
+        "body": {
+          "error": "로그인이 필요합니다."
+        },
+        "sessionCookie": null
+      }
+    },
+    {
+      "label": "로그인 B",
+      "request": {
+        "method": "POST",
+        "endpoint": "/api/auth/sign-in/email",
+        "cookie": null,
+        "headers": {},
+        "body": {
+          "email": "t07-check-dd1fd705-0d30-428b-9ff4-e3d90573fc4b-B@example.invalid",
+          "password": "[가림]"
+        }
+      },
+      "response": {
+        "status": 401,
+        "body": {
+          "error": "이메일 또는 비밀번호를 확인해 주세요."
+        },
+        "sessionCookie": null
+      }
+    },
+    {
+      "label": "로그인 B",
+      "request": {
+        "method": "POST",
+        "endpoint": "/api/auth/sign-in/email",
+        "cookie": null,
+        "headers": {},
+        "body": {
+          "email": "t07-check-dd1fd705-0d30-428b-9ff4-e3d90573fc4b-B@example.invalid",
+          "password": "[가림]"
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "redirect": false,
+          "user": {
+            "name": "[테스트] B",
+            "email": "t07-check-dd1fd705-0d30-428b-9ff4-e3d90573fc4b-b@example.invalid",
+            "emailVerified": false,
+            "image": null,
+            "createdAt": "2026-09-30T06:55:40.871Z",
+            "updatedAt": "2026-09-30T06:55:40.871Z",
+            "id": "c116b393-60b4-478e-8cc3-aa37085980ed"
+          }
+        },
+        "sessionCookie": "[가림]"
+      }
+    },
+    {
+      "label": "만료 시각 지난 세션 거절",
+      "request": {
+        "method": "GET",
+        "endpoint": "/api/plans",
+        "cookie": "[가림]",
+        "headers": {}
+      },
+      "response": {
+        "status": 401,
+        "body": {
+          "error": "로그인이 필요합니다."
+        },
+        "sessionCookie": null
+      }
+    },
+    {
+      "label": "인증 요청 제한과 Retry-After 준수",
+      "response": {
+        "status": 429
+      },
+      "retryAfterSeconds": 10
+    },
+    {
+      "label": "로그인 A",
+      "request": {
+        "method": "POST",
+        "endpoint": "/api/auth/sign-in/email",
+        "cookie": null,
+        "headers": {},
+        "body": {
+          "email": "t07-check-dd1fd705-0d30-428b-9ff4-e3d90573fc4b-A@example.invalid",
+          "password": "[가림]"
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "redirect": false,
+          "user": {
+            "name": "[테스트] A",
+            "email": "t07-check-dd1fd705-0d30-428b-9ff4-e3d90573fc4b-a@example.invalid",
+            "emailVerified": false,
+            "image": null,
+            "createdAt": "2026-09-30T06:55:40.790Z",
+            "updatedAt": "2026-09-30T06:55:40.790Z",
+            "id": "8d3afd27-9cd1-419f-8ff6-740f70d2c591"
+          }
+        },
+        "sessionCookie": "[가림]"
+      }
+    },
+    {
+      "label": "잘못된 비밀번호로 계정 삭제 거절",
+      "request": {
+        "method": "DELETE",
+        "endpoint": "/api/account",
+        "cookie": "[가림]",
+        "headers": {},
+        "body": {
+          "password": "[가림]"
+        }
+      },
+      "response": {
+        "status": 401,
+        "body": {
+          "error": "비밀번호를 확인해 주세요."
+        },
+        "sessionCookie": null
+      }
+    },
+    {
+      "label": "다른 사이트의 수정 요청 거절",
+      "request": {
+        "method": "PATCH",
+        "endpoint": "/api/tasks",
+        "cookie": "[가림]",
+        "headers": {
+          "sec-fetch-site": "cross-site"
+        },
+        "body": {
+          "id": "23cf6c1a-1aa5-400a-bb85-a7582b51419b",
+          "action": "complete"
+        }
+      },
+      "response": {
+        "status": 403,
+        "body": {
+          "error": "허용되지 않은 요청입니다."
+        },
+        "sessionCookie": null
+      }
+    },
+    {
+      "label": "가입 IMPORT",
+      "request": {
+        "method": "POST",
+        "endpoint": "/api/auth/sign-up/email",
+        "cookie": null,
+        "headers": {},
+        "body": {
+          "name": "[테스트] IMPORT",
+          "email": "t07-check-dd1fd705-0d30-428b-9ff4-e3d90573fc4b-IMPORT@example.invalid",
+          "password": "[가림]"
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "user": {
+            "name": "[테스트] IMPORT",
+            "email": "t07-check-dd1fd705-0d30-428b-9ff4-e3d90573fc4b-import@example.invalid",
+            "emailVerified": false,
+            "image": null,
+            "createdAt": "2026-09-30T06:56:02.240Z",
+            "updatedAt": "2026-09-30T06:56:02.240Z",
+            "id": "3749f597-48c6-44f8-a682-fc5962f969f9"
+          }
+        },
+        "sessionCookie": "[가림]"
+      }
+    },
+    {
+      "label": "가입 COLLISION",
+      "request": {
+        "method": "POST",
+        "endpoint": "/api/auth/sign-up/email",
+        "cookie": null,
+        "headers": {},
+        "body": {
+          "name": "[테스트] COLLISION",
+          "email": "t07-check-dd1fd705-0d30-428b-9ff4-e3d90573fc4b-COLLISION@example.invalid",
+          "password": "[가림]"
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "user": {
+            "name": "[테스트] COLLISION",
+            "email": "t07-check-dd1fd705-0d30-428b-9ff4-e3d90573fc4b-collision@example.invalid",
+            "emailVerified": false,
+            "image": null,
+            "createdAt": "2026-09-30T06:56:02.322Z",
+            "updatedAt": "2026-09-30T06:56:02.322Z",
+            "id": "cba3fcc2-2890-42db-a9b3-63ca735e31f3"
+          }
+        },
+        "sessionCookie": "[가림]"
+      }
+    },
+    {
+      "label": "T06 자료 가져오기",
+      "request": {
+        "method": "POST",
+        "endpoint": "/api/import",
+        "cookie": "[가림]",
+        "headers": {},
+        "body": "[자료 본문 생략]"
+      },
+      "response": {
+        "status": 201,
+        "body": {
+          "omitted": true
+        },
+        "sessionCookie": null
+      }
+    },
+    {
+      "label": "가져온 원본 대조",
+      "request": {
+        "method": "GET",
+        "endpoint": "/api/export",
+        "cookie": "[가림]",
+        "headers": {},
+        "body": "[자료 본문 생략]"
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "omitted": true
+        },
+        "sessionCookie": null
+      }
+    },
+    {
+      "label": "중복 가져오기 거절",
+      "request": {
+        "method": "POST",
+        "endpoint": "/api/import",
+        "cookie": "[가림]",
+        "headers": {},
+        "body": "[자료 본문 생략]"
+      },
+      "response": {
+        "status": 409,
+        "body": {
+          "omitted": true
+        },
+        "sessionCookie": null
+      }
+    },
+    {
+      "label": "다른 계정 ID 충돌 전체 롤백",
+      "request": {
+        "method": "POST",
+        "endpoint": "/api/import",
+        "cookie": "[가림]",
+        "headers": {},
+        "body": "[자료 본문 생략]"
+      },
+      "response": {
+        "status": 409,
+        "body": {
+          "omitted": true
+        },
+        "sessionCookie": null
+      }
+    },
+    {
+      "label": "계정 삭제 IMPORT",
+      "request": {
+        "method": "DELETE",
+        "endpoint": "/api/account",
+        "cookie": "[가림]",
+        "headers": {},
+        "body": {
+          "password": "[가림]"
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "deleted": true
+        },
+        "sessionCookie": "[가림]"
+      }
+    },
+    {
+      "label": "계정 삭제 COLLISION",
+      "request": {
+        "method": "DELETE",
+        "endpoint": "/api/account",
+        "cookie": "[가림]",
+        "headers": {},
+        "body": {
+          "password": "[가림]"
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "deleted": true
+        },
+        "sessionCookie": "[가림]"
+      }
+    },
+    {
+      "label": "계정 삭제 A",
+      "request": {
+        "method": "DELETE",
+        "endpoint": "/api/account",
+        "cookie": "[가림]",
+        "headers": {},
+        "body": {
+          "password": "[가림]"
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "deleted": true
+        },
+        "sessionCookie": "[가림]"
+      }
+    },
+    {
+      "label": "계정 삭제 후 이전 세션 거절",
+      "request": {
+        "method": "GET",
+        "endpoint": "/api/plans",
+        "cookie": "[가림]",
+        "headers": {}
+      },
+      "response": {
+        "status": 401,
+        "body": {
+          "error": "로그인이 필요합니다."
+        },
+        "sessionCookie": null
+      }
+    },
+    {
+      "label": "로그인 A",
+      "request": {
+        "method": "POST",
+        "endpoint": "/api/auth/sign-in/email",
+        "cookie": null,
+        "headers": {},
+        "body": {
+          "email": "t07-check-dd1fd705-0d30-428b-9ff4-e3d90573fc4b-A@example.invalid",
+          "password": "[가림]"
+        }
+      },
+      "response": {
+        "status": 401,
+        "body": {
+          "error": "이메일 또는 비밀번호를 확인해 주세요."
+        },
+        "sessionCookie": null
+      }
+    },
+    {
+      "label": "계정 삭제 B",
+      "request": {
+        "method": "DELETE",
+        "endpoint": "/api/account",
+        "cookie": "[가림]",
+        "headers": {},
+        "body": {
+          "password": "[가림]"
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "deleted": true
+        },
+        "sessionCookie": "[가림]"
+      }
+    }
+  ]
+}

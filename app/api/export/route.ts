@@ -1,10 +1,11 @@
 import { exportDiary } from "@/db/export";
+import { protectedRoute } from "@/lib/protected-route";
 
 export const dynamic = "force-dynamic";
 
-export async function GET() {
+async function get(_request: Request, userId: string) {
   try {
-    const diary = await exportDiary();
+    const diary = await exportDiary(userId);
     const timestamp = diary.exportedAt.replace(/[-:]/g, "").replace(/\.\d{3}Z$/, "Z");
     return new Response(JSON.stringify(diary, null, 2) + "\n", {
       headers: {
@@ -21,3 +22,4 @@ export async function GET() {
     });
   }
 }
+export const GET = protectedRoute(get);

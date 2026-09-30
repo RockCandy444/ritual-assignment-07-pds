@@ -8,6 +8,8 @@
   "baseTree": "89505d202f4fec039194b135a78f71129f36cd31",
   "t06DeploymentCommit": "70766d03b2c53b11136fc6500e0efbbe58619d4c",
   "developmentBranch": "codex/task07-auth",
-  "t07HostingStatus": "not-registered",
+  "t07ProjectId": "appgprj_6abca6f18c448191a5031cab53c0e88d",
+  "t07RepositoryUrl": "https://github.com/RockCandy444/ritual-assignment-07-pds",
+  "t07HostingStatus": "registered-separate-project-and-database",
   "dataMigrationStatus": "pending-authenticated-owner-account"
 }

@@ -3,24 +3,27 @@ import { listStudyLogs } from "@/db/study-logs";
 import { listTasks } from "@/db/tasks";
 import { summarizeReview, validateReview } from "@/lib/review";
 import { taskIdPattern } from "@/lib/task";
+import { protectedRoute } from "@/lib/protected-route";
+import { AccessDenied, requirePlanOwner } from "@/db/ownership";
 
 export const dynamic = "force-dynamic";
 const json = (body: unknown, status = 200) => Response.json(body, { status, headers: { "Cache-Control": "no-store" } });
 const validId = (value: unknown): value is string => typeof value === "string" && taskIdPattern.test(value);
 
-export async function GET(request: Request) {
+async function get(request: Request, userId: string) {
   const planId = new URL(request.url).searchParams.get("planId");
   if (!validId(planId)) return json({ error: "올바른 계획 ID가 필요합니다." }, 400);
   try {
+    await requirePlanOwner(planId, userId);
     const [tasks, logs, review, incoming] = await Promise.all([
-      listTasks(planId), listStudyLogs(planId), getReview(planId), incomingImprovements(planId),
+      listTasks(planId, userId), listStudyLogs(planId, userId), getReview(planId, userId), incomingImprovements(planId, userId),
     ]);
     const todayInSeoul = new Date(Date.now() + 9 * 60 * 60 * 1000).toISOString().slice(0, 10);
     return json({ summary: summarizeReview(tasks, logs, todayInSeoul), tasks, logs, review, incoming, todayInSeoul });
-  } catch { console.error("Review read failed"); return json({ error: "돌아보기를 불러오지 못했어요." }, 503); }
+  } catch (error) { if (error instanceof AccessDenied) throw error; console.error("Review read failed"); return json({ error: "돌아보기를 불러오지 못했어요." }, 503); }
 }
 
-export async function POST(request: Request) {
+async function post(request: Request, userId: string) {
   let body: Record<string, unknown>;
   let input;
   try {
@@ -37,8 +40,12 @@ export async function POST(request: Request) {
     input = validateReview(body.review, body.planId);
   } catch (error) { return json({ error: error instanceof Error ? error.message : "입력을 확인해 주세요." }, 400); }
   try {
-    const review = await saveReview(body.planId as string, body.expectedVersion as number, input);
+    await requirePlanOwner(body.planId as string, userId);
+    await requirePlanOwner(input.nextPlanId, userId);
+    const review = await saveReview(body.planId as string, body.expectedVersion as number, input, userId);
     return review ? json({ review }, body.expectedVersion === 0 ? 201 : 200)
       : json({ error: "다음 계획의 기간을 확인하거나 새로 불러와 주세요." }, 409);
-  } catch { console.error("Review save failed"); return json({ error: "개선점을 저장하지 못했어요." }, 503); }
+  } catch (error) { if (error instanceof AccessDenied) throw error; console.error("Review save failed"); return json({ error: "개선점을 저장하지 못했어요." }, 503); }
 }
+export const GET = protectedRoute(get);
+export const POST = protectedRoute(post);

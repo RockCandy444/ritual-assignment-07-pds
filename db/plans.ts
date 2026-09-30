@@ -6,28 +6,30 @@ function database() {
   if (!env.DB) throw new Error("Database unavailable");
   return env.DB;
 }
-export async function listPlans() {
+export async function listPlans(userId: string) {
   const result = await database().prepare(`SELECT ${columns} FROM plan_versions v
-    WHERE version = (SELECT MAX(version) FROM plan_versions WHERE plan_id = v.plan_id)
-    ORDER BY saved_at DESC, plan_id ASC`).all<PlanVersion>();
+    WHERE EXISTS (SELECT 1 FROM plans p WHERE p.id = v.plan_id AND p.owner_id = ?)
+    AND version = (SELECT MAX(version) FROM plan_versions WHERE plan_id = v.plan_id)
+    ORDER BY saved_at DESC, plan_id ASC`).bind(userId).all<PlanVersion>();
   return result.results;
 }
-export async function history(id: string) {
+export async function history(id: string, userId: string) {
   const result = await database().prepare(`SELECT ${columns} FROM plan_versions
-    WHERE plan_id = ? ORDER BY version DESC`).bind(id).all<PlanVersion>();
+    WHERE plan_id = ? AND EXISTS (SELECT 1 FROM plans p WHERE p.id = plan_id AND p.owner_id = ?)
+    ORDER BY version DESC`).bind(id, userId).all<PlanVersion>();
   return result.results;
 }
-export async function savePlan(id: string, expectedVersion: number, input: PlanInput) {
+export async function savePlan(id: string, expectedVersion: number, input: PlanInput, userId: string) {
   const db = database(); const timestamp = new Date().toISOString();
   const statements = [];
-  if (expectedVersion === 0) statements.push(db.prepare("INSERT OR IGNORE INTO plans (id, created_at) VALUES (?, ?)").bind(id, timestamp));
+  if (expectedVersion === 0) statements.push(db.prepare("INSERT OR IGNORE INTO plans (id, created_at, owner_id) VALUES (?, ?, ?)").bind(id, timestamp, userId));
   statements.push(db.prepare(`INSERT INTO plan_versions
     (plan_id, version, title, start_date, end_date, priority, success_criteria, expected_minutes, saved_at)
     SELECT ?, ?, ?, ?, ?, ?, ?, ?, ?
-    WHERE EXISTS (SELECT 1 FROM plans WHERE id = ?)
+    WHERE EXISTS (SELECT 1 FROM plans WHERE id = ? AND owner_id = ?)
     AND COALESCE((SELECT MAX(version) FROM plan_versions WHERE plan_id = ?), 0) = ?`)
     .bind(id, expectedVersion + 1, input.title, input.startDate, input.endDate, input.priority,
-      input.successCriteria, input.expectedMinutes, timestamp, id, id, expectedVersion));
+      input.successCriteria, input.expectedMinutes, timestamp, id, userId, id, expectedVersion));
   const result = await db.batch(statements);
   if (result[result.length - 1].meta.changes !== 1) return null;
   return { ...input, id, version: expectedVersion + 1, savedAt: timestamp } satisfies PlanVersion;
