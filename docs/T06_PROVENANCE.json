@@ -1,0 +1,13 @@
+{
+  "assignment": "T07",
+  "baseAssignment": "T06",
+  "baseResultUrl": "https://pds-study-diary.ldh4563.chatgpt.site/",
+  "baseRepositoryUrl": "https://github.com/RockCandy444/ritual-assignment-06-pds",
+  "baseSourceUrl": "https://github.com/RockCandy444/ritual-assignment-06-pds/tree/cade4b42bbbcbaf44f876b3c80fc6564833b790f",
+  "baseCommit": "cade4b42bbbcbaf44f876b3c80fc6564833b790f",
+  "baseTree": "89505d202f4fec039194b135a78f71129f36cd31",
+  "t06DeploymentCommit": "70766d03b2c53b11136fc6500e0efbbe58619d4c",
+  "developmentBranch": "codex/task07-auth",
+  "t07HostingStatus": "not-registered",
+  "dataMigrationStatus": "pending-authenticated-owner-account"
+}
