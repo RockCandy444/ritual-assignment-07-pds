@@ -1,0 +1,189 @@
+{
+  "format": "t07-experiment-evidence-v1",
+  "note": "원본 전체 내보내기가 아니라 T07 실험에 연결된 행만 발췌한 확인 자료. 앱 재가져오기용 파일이 아님.",
+  "sourceFile": "pds-diary-20261006T010731Z.json",
+  "sourceSha256": "de3f6847b7094d5b4388928e5ed7915b814c8338d1da8556560cc196cb3bc5b8",
+  "sourceExportedAtUtc": "2026-10-06T01:07:31Z",
+  "timezone": "Asia/Seoul",
+  "tables": {
+    "plans": [
+      {
+        "id": "9873dd95-e994-4431-937f-d743b89d2da2",
+        "created_at": "2026-10-01T08:13:25.825Z"
+      }
+    ],
+    "plan_versions": [
+      {
+        "plan_id": "9873dd95-e994-4431-937f-d743b89d2da2",
+        "version": 1,
+        "title": "T07 · JLPT N2 5일 실험",
+        "start_date": "2026-10-01",
+        "end_date": "2026-10-05",
+        "priority": "normal",
+        "success_criteria": "실험 기준 확정: 2026-10-01 17:09 (Asia/Seoul).\n질문: 계획 규칙 하나를 바꾸면 하루 실제 공부 시간은 어떻게 달라질까?\n지표·단위: 하루 실제 공부 시간(분) 하나. 시작 시각의 서울 날짜별로 휴식을 제외한 실제 시간을 합산한다. 각 세션의 초÷60은 소수점을 버려 정수 분으로 입력하고, 평균은 계산 마지막에 소수점 첫째 자리까지 반올림한다. 주 시작은 월요일.\n1·2일차 시작 규칙: JLPT N2를 한 번에 30분 목표로 공부하고 실제로 공부한 시간을 기록한다. 자료는 JLPT Plus와 기존 JLPT 서적.\n서로 다른 실제 날짜 5일 사용한다. 10/1~10/5는 예정 기간이며, 기록 없는 날은 결측으로 남기고 실제 5일을 채운다. 같은 실제 세션의 중복은 한 번만 계산하고 삭제된 기록은 제외한다. 정상적으로 짧거나 긴 값은 그대로 사용하며 입력 오류만 사실대로 수정하고 이유를 남긴다. T06 과거 기록과 인증 테스트 기록은 제외한다.\n2일차 기록 후·3일차 공부 전에 기록을 근거로 계획 규칙 하나만 바꾼다. 실제 변경 시각·이유·1/2일차 공부 기록 ID·계획 버전을 남기고 나머지 기준은 유지한다.\n비교: 변경 전 합계÷2, 변경 후 합계÷3, 전체 합계÷5. 합계·평균은 손계산과 대조한다.",
+        "expected_minutes": 150,
+        "saved_at": "2026-10-01T08:13:25.825Z"
+      },
+      {
+        "plan_id": "9873dd95-e994-4431-937f-d743b89d2da2",
+        "version": 2,
+        "title": "T07 · JLPT N2 5일 실험",
+        "start_date": "2026-10-01",
+        "end_date": "2026-10-06",
+        "priority": "normal",
+        "success_criteria": "실험 기준 확정: 2026-10-01 17:09 (Asia/Seoul).\n질문: 계획 규칙 하나를 바꾸면 하루 실제 공부 시간은 어떻게 달라질까?\n지표·단위: 하루 실제 공부 시간(분) 하나. 시작 시각의 서울 날짜별로 휴식을 제외한 실제 시간을 합산한다. 각 세션의 초÷60은 소수점을 버려 정수 분으로 입력하고, 평균은 계산 마지막에 소수점 첫째 자리까지 반올림한다. 주 시작은 월요일.\n1·2일차 시작 규칙: JLPT N2를 한 번에 30분 목표로 공부하고 실제로 공부한 시간을 기록한다. 자료는 JLPT Plus와 기존 JLPT 서적.\n서로 다른 실제 날짜 5일 사용한다. 10/1~10/6은 조정한 예정 기간이며, 기록 없는 날은 결측으로 남기고 실제 5일을 채운다. 같은 실제 세션의 중복은 한 번만 계산하고 삭제된 기록은 제외한다. 정상적으로 짧거나 긴 값은 그대로 사용하며 입력 오류만 사실대로 수정하고 이유를 남긴다. T06 과거 기록과 인증 테스트 기록은 제외한다.\n2일차 기록 후·3일차 공부 전에 기록을 근거로 계획 규칙 하나만 바꾼다. 실제 변경 시각·이유·1/2일차 공부 기록 ID·계획 버전을 남기고 나머지 기준은 유지한다.\n비교: 변경 전 합계÷2, 변경 후 합계÷3, 전체 합계÷5. 합계·평균은 손계산과 대조한다.\n\n변경 기록(2026-10-06 09:34, Asia/Seoul): 공부 순서 규칙 하나를 변경한다. 이전: 30분 새 단어 암기. 이후: 한 번의 공부에서 앞 10분은 이전 단어 복습, 뒤 20분은 새 단어 암기. 총 목표 30분과 지표·단위·계산 기준은 유지한다. 근거: 1일차(10/1 23:00~23:30, 30분)의 “전부 외워지지 않은 것 같다”는 메모와 2일차(10/2 23:00~23:30, 30분)의 단어 10개 암기 기록. 기록 ID는 JSON 확인 후 보완한다. 사용자는 10/4부터 새 규칙으로 공부했다고 확인했다. 실제 적용 시작일은 사용자 진술 기준 10/4이며 정확한 변경 시각은 미확인이다. 계획 버전 1→2의 문서화는 10/6에 사후 수행하므로, 3일차 전 저장한 변경 이력으로 보지 않는다. 3·4·5일차 예정일을 10/4·10/5·10/6으로 조정한다. 10/3은 아직 공부 기록이 없는 날로 남긴다.",
+        "expected_minutes": 150,
+        "saved_at": "2026-10-06T00:34:24.888Z"
+      }
+    ],
+    "tasks": [
+      {
+        "id": "1d2c0195-2cf2-4355-99a3-913fad7efdc6",
+        "plan_id": "9873dd95-e994-4431-937f-d743b89d2da2",
+        "title": "5일차 · JLPT N2 공부",
+        "due_date": "2026-10-06",
+        "priority": "normal",
+        "tags": "[\"단어암기\"]",
+        "expected_minutes": 30,
+        "completed_at": "2026-10-06T00:47:48.32Z",
+        "deleted_at": null,
+        "created_at": "2026-10-06T00:26:30.91Z",
+        "updated_at": "2026-10-06T00:47:48.32Z",
+        "version": 3
+      },
+      {
+        "id": "45fb82ae-776f-4e57-ab73-7da71f2dc04f",
+        "plan_id": "9873dd95-e994-4431-937f-d743b89d2da2",
+        "title": "2일차 · JLPT N2 공부",
+        "due_date": "2026-10-02",
+        "priority": "normal",
+        "tags": "[\"단어암기\"]",
+        "expected_minutes": 30,
+        "completed_at": "2026-10-06T00:26:34.1Z",
+        "deleted_at": null,
+        "created_at": "2026-10-06T00:25:28.074Z",
+        "updated_at": "2026-10-06T00:26:34.1Z",
+        "version": 3
+      },
+      {
+        "id": "91b4a767-9021-48b4-a7ba-3fd34d34e0ad",
+        "plan_id": "9873dd95-e994-4431-937f-d743b89d2da2",
+        "title": "3일차 · JLPT N2 공부",
+        "due_date": "2026-10-04",
+        "priority": "normal",
+        "tags": "[\"단어암기\"]",
+        "expected_minutes": 30,
+        "completed_at": "2026-10-06T00:47:44.118Z",
+        "deleted_at": null,
+        "created_at": "2026-10-06T00:26:01.368Z",
+        "updated_at": "2026-10-06T00:47:44.118Z",
+        "version": 3
+      },
+      {
+        "id": "9292ecc8-f57c-4cd1-b2a7-035a2e97ef2e",
+        "plan_id": "9873dd95-e994-4431-937f-d743b89d2da2",
+        "title": "4일차 · JLPT N2 공부",
+        "due_date": "2026-10-05",
+        "priority": "normal",
+        "tags": "[\"단어암기\"]",
+        "expected_minutes": 30,
+        "completed_at": "2026-10-06T00:47:46.308Z",
+        "deleted_at": null,
+        "created_at": "2026-10-06T00:26:13.338Z",
+        "updated_at": "2026-10-06T00:47:46.308Z",
+        "version": 3
+      },
+      {
+        "id": "97358a8c-3fe3-419f-ad74-5e59cfc9f5bf",
+        "plan_id": "9873dd95-e994-4431-937f-d743b89d2da2",
+        "title": "1일차 · JLPT N2 공부",
+        "due_date": "2026-10-01",
+        "priority": "normal",
+        "tags": "[\"단어암기\"]",
+        "expected_minutes": 30,
+        "completed_at": "2026-10-02T06:31:11.676Z",
+        "deleted_at": null,
+        "created_at": "2026-10-02T06:31:02.835Z",
+        "updated_at": "2026-10-02T06:31:11.676Z",
+        "version": 2
+      }
+    ],
+    "study_logs": [
+      {
+        "id": "0cbe9166-a506-4470-9b9e-90730c084a0b",
+        "task_id": "97358a8c-3fe3-419f-ad74-5e59cfc9f5bf",
+        "started_at": "2026-10-01T14:00:00Z",
+        "ended_at": "2026-10-01T14:30:00Z",
+        "actual_minutes": 30,
+        "studied_content": "JLPT Plus 어플로 단어 10개 암기",
+        "blocker_reason": "전부 외워지지 않은 것 같다.",
+        "created_at": "2026-10-02T06:32:24.099Z",
+        "updated_at": "2026-10-02T06:32:24.099Z",
+        "deleted_at": null,
+        "version": 1
+      },
+      {
+        "id": "cea82e5a-f7e9-46c4-b329-03054f1a312d",
+        "task_id": "45fb82ae-776f-4e57-ab73-7da71f2dc04f",
+        "started_at": "2026-10-02T14:00:00Z",
+        "ended_at": "2026-10-02T14:30:00Z",
+        "actual_minutes": 30,
+        "studied_content": "JLPT Plus 어플로 단어 10개 암기",
+        "blocker_reason": null,
+        "created_at": "2026-10-06T00:27:58.755Z",
+        "updated_at": "2026-10-06T00:28:17.124Z",
+        "deleted_at": null,
+        "version": 2
+      },
+      {
+        "id": "b8300e92-1f4c-454f-ba1d-e3efbc7afaac",
+        "task_id": "91b4a767-9021-48b4-a7ba-3fd34d34e0ad",
+        "started_at": "2026-10-04T14:30:00Z",
+        "ended_at": "2026-10-04T14:58:00Z",
+        "actual_minutes": 28,
+        "studied_content": "JLPT Plus 어플로 단어 10개 암기",
+        "blocker_reason": null,
+        "created_at": "2026-10-06T00:41:03.891Z",
+        "updated_at": "2026-10-06T00:41:03.891Z",
+        "deleted_at": null,
+        "version": 1
+      },
+      {
+        "id": "8dca5a11-37fc-4014-a21c-9f6b93658409",
+        "task_id": "9292ecc8-f57c-4cd1-b2a7-035a2e97ef2e",
+        "started_at": "2026-10-05T04:30:00Z",
+        "ended_at": "2026-10-05T05:00:00Z",
+        "actual_minutes": 30,
+        "studied_content": "JLPT Plus 어플로 단어 10개 암기",
+        "blocker_reason": null,
+        "created_at": "2026-10-06T00:42:05.844Z",
+        "updated_at": "2026-10-06T00:42:05.844Z",
+        "deleted_at": null,
+        "version": 1
+      },
+      {
+        "id": "702a3d53-4fc7-4fbd-bccf-063b200fba01",
+        "task_id": "1d2c0195-2cf2-4355-99a3-913fad7efdc6",
+        "started_at": "2026-10-06T00:10:00Z",
+        "ended_at": "2026-10-06T00:40:00Z",
+        "actual_minutes": 30,
+        "studied_content": "JLPT Plus 어플로 단어 10개 암기",
+        "blocker_reason": null,
+        "created_at": "2026-10-06T00:42:44.753Z",
+        "updated_at": "2026-10-06T00:42:44.753Z",
+        "deleted_at": null,
+        "version": 1
+      }
+    ],
+    "plan_reviews": [
+      {
+        "plan_id": "9873dd95-e994-4431-937f-d743b89d2da2",
+        "next_plan_id": "d5e781e1-f5ca-4104-8038-27a8db51f8c7",
+        "improvement": "복습 10분 + 새 단어 20분",
+        "created_at": "2026-10-06T00:50:27.993Z",
+        "updated_at": "2026-10-06T00:50:27.993Z",
+        "version": 1
+      }
+    ]
+  }
+}
